@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Maze</h1>
+<hr>
+<h3>Waking Up</h3>
+<!-- Tiedot tulee tähän -->
+
+<p>
+  You wake up in a weird room with 4 doors, 1 on each of the walls surrounding you. You see a compass stuck on the floor in the middle of the room. It points north towards the door in front of you. You feel a sense of urgency, but aren't sure why.
+</p>
+<p>
+  What are you going to do?
+</p>
+<!-- Vaihtehdot tähän listana -->
+<ol>
+  <li><a href="#">Go through the door left of you.</a></li>
+  <li><a href="#">Go through the door in front of you.</a></li>
+  <li><a href="#">Go through the door right of you.</a></li>
+  <li><a href="#">Turn around and go through the door behind you.</a></li>
+  <li><a href="#">Wait and do nothing.</a></li>
+</ol>
+{% endblock %}

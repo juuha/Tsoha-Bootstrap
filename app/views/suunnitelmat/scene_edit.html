@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa tarinan Maze kohtausta Waking Up</h1>
+
+<form>
+  <div class="form-group">
+    <label>Tilanne</label>
+    <textarea class="form-control">
+      You wake up in a weird room with 4 doors, 1 on each of the walls surrounding you. You see a compass stuck on the floor in the middle of the room. It points north towards the door in front of you. You feel a sense of urgency, but aren't sure why.
+    </textarea>
+  </div>
+  <div class="form-group">
+    <label>Kysymys</label>
+    <textarea class="form-control">
+      What are you going to do?
+    </textarea>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Tallenna</button>    
+    <button class="btn btn-danger">Poista</button> 
+  </div>
+</form>
+<hr>
+<a href="#" class="btn btn-success">Lisää uusi lapsi</a>
+<button class="btn btn-success" onclick="childForm()">Lisää olemassaoleva lapsi</button>
+<form id="newChild" style="display: none;">
+    <label>Lapsen nimi</label><br>
+    <select name="child" size="5">
+      <option>Waking Up</option>
+      <option>What's in the crate (carefully)</option>
+      <option>What's in the crate (smash)</option>
+      <option>Door on the Left</option>
+    </select><br>
+    <label>Vaihtoehdon nimi</label><br>
+    <input type="text"></input><br><br>
+    <button type="submit" class="btn btn-primary"> Tallenna</button>
+    
+</form>
+<script>
+  function childForm(){
+    var x = document.getElementById("newChild");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
+{% endblock %}

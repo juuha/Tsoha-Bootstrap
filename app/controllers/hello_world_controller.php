@@ -11,4 +11,28 @@
       // Testaa koodiasi täällä
       echo 'Hello World!';
     }
+
+    public static function login(){
+      View::make('suunnitelmat/login.html');
+    }
+
+    public static function scene_view(){
+      View::make('suunnitelmat/scene_view.html');
+    }
+
+    public static function scene_edit(){
+      View::make('suunnitelmat/scene_edit.html');
+    }
+
+    public static function story_edit(){
+      View::make('suunnitelmat/story_edit.html');
+    }
+
+    public static function story_list(){
+      View::make('suunnitelmat/story_list.html');
+    }
+
+    public static function story_view(){
+      View::make('suunnitelmat/story_view.html');
+    }
   }

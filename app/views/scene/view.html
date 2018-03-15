@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{story.name}}</h3> 
+<hr>
+<h1>{{scene.name}}</h1>
+<!-- Tiedot tulee tähän -->
+
+<p>{{scene.situation}}</p>
+<p>{{scene.question}}</p>
+<!-- Vaihtehdot tähän listana -->
+
+<ol>
+	{% for link in links %}
+	<li><a href="{{base_path}}/scene/{{link.child_scene_id}}">{{link.option_name}}</a></li>
+	{% endfor %}
+</ol>
+
+<hr>
+<p>
+	<a href="{{base_path}}/story/{{story.id}}" class="btn btn-default">Palaa tarinan kuvaukseen</a>
+</p>
+<hr>
+<p>
+	<button class="btn btn-success" onclick="childForm()">Lisää uusi lapsi</button>
+	<a href="{{base_path}}/scene/{{scene.id}}/new" class="btn btn-success">Luo uusi lapsi</a>
+	<a href="{{base_path}}/scene/{{scene.id}}/edit" class="btn btn-default">Muokkaa</a>
+	<a class="btn btn-danger" href="#">Poista</a>
+</p>
+
+<hr>
+
+<form id="newChild" style="display: none;" method="post" action="{{base_path}}/scene/existing">
+	<div class="form-group">
+		<label>Lapsen nimi</label>
+		<select name="child_scene_id" size="5" class="form-control">
+			{% for scene in scenes %}
+			<option value="{{scene.id}}">{{scene.name}}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Valinnan nimi</label>
+		<input type="text" placeholder="esim. Avaa ovi 1." class="form-control" name="option_name">
+	</div>
+	<input type="hidden" name="parent_scene_id" value="{{scene.id}}"></input>
+	<div>
+		<button type="submit" class="btn btn-primary">Tallenna</button>
+	</div>
+</form>
+
+<script>
+	function childForm(){
+		var x = document.getElementById("newChild");
+		if (x.style.display === "none") {
+			x.style.display = "block";
+		} else {
+			x.style.display = "none";
+		}
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Tarinat</h1>
+
+  <p>
+    <a href="{{base_path}}/story/new" class="btn btn-success">Lisää tarina</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Kirjoittaja</th>
+        <th>Genre</th>
+        <th>Lisäyspäivä</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for story in stories %}
+      <tr>
+        <td><a href="{{base_path}}/story/{{story.id}}">{{story.name}}</a></td>
+        <td>{{story.author_id}}</td>
+        <td>{{story.genre}}</td>
+        <td>{{story.last_edited}}</td>
+        <td><a class="btn btn-default btn-sm" href="{{base_path}}/story/{{story.id}}/edit">Muokkaa</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

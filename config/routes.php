@@ -1,5 +1,61 @@
 <?php
+  
+  //SceneController routet
 
+  $routes->get('/scene/:id/new', function($id){
+    SceneController::new($id);
+  });
+
+  $routes->get('/story/:id/new_scene', function($story_id){
+    SceneController::newFirstScene($story_id);
+  });
+
+  $routes->get('/scene/:id', function($id){
+    SceneController::view($id);
+  });
+
+  $routes->get('/story/:storyid/read', function($story_id){
+    SceneController::read($story_id);
+  });
+
+  $routes->get('/story/:storyid/scenes', function($story_id){
+    SceneController::list($story_id);
+  });
+
+  $routes->post('/scene/new', function(){
+    SceneController::storeNew();
+  });
+
+  $routes->post('/scene/first', function(){
+    SceneController::storeFirst();
+  });
+
+  $routes->post('/scene/existing', function(){
+    SceneController::storeExisting();
+  });
+
+
+  //StoryController routet
+
+  $routes->get('/story', function() {
+    StoryController::list();
+  });
+
+  $routes->get('/story/new', function(){
+    StoryController::new();
+  });
+
+  $routes->get('/story/:id', function($id){
+    StoryController::view($id);
+  });
+
+  $routes->post('/story', function(){
+    StoryController::store();
+  });
+
+
+  //Testi ja suunnitelma routet
+  
   $routes->get('/', function() {
     HelloWorldController::index();
   });

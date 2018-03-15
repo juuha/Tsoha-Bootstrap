@@ -10,7 +10,7 @@ CREATE TABLE Story(
 	author_id INTEGER REFERENCES Author(id),
 	genre varchar(50),
 	synopsis varchar(1000),
-	date_of_addition DATE NOT NULL
+  last_edited DATE NOT NULL
 );
 
 CREATE TABLE Scene(

@@ -3,7 +3,7 @@ INSERT INTO Author (name, password) VALUES ('J', 'eihyväsalis');
 
 
 --Story-taulun testidata
-INSERT INTO Story (name, author_id, genre, date_of_addition, synopsis) VALUES
+INSERT INTO Story (name, author_id, genre, last_edited, synopsis) VALUES
 ('Maze', 1, 'Mysteeri', '08.08.2088', 'You wake up in a strange room, with no memory
 	on how or why you are there. You only see 4 doors around you and a compass at the
 	center of the room. You feel a sense of urgency to get out, something is coming.');

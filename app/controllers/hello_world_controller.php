@@ -1,5 +1,4 @@
 <?php
-
   class HelloWorldController extends BaseController{
 
     public static function index(){
@@ -9,7 +8,10 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      echo 'Hello World!';
+      $sceneLinks = SceneLink::findChildrenOf(1);
+
+      Kint::dump($sceneLinks);
+      
     }
 
     public static function login(){

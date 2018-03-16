@@ -90,7 +90,7 @@ class Scene extends BaseModel{
 
 	public function validateName(){
 		$errors = array();
-		if(Scene::isEmpty($this->name)){
+		if(Scene::validateNotEmpty($this->name)){
 			$errors[] = 'Nimi ei saa olla tyhjä.';
 		}
 		if(Scene::existsWith($this->name, $this->story_id){
@@ -101,7 +101,7 @@ class Scene extends BaseModel{
 
 	public function validateSituation(){
 		$errors = array();
-		if(Scene::isEmpty($this->situation)){
+		if(Scene::validateNotEmpty($this->situation)){
 			$errors[] = 'Tilanne ei saa olla tyhjä.';
 		}
 		return $errors;
@@ -110,15 +110,10 @@ class Scene extends BaseModel{
 
 	public function validateQuestion(){
 		$errors = array();
-		if(Scene::isEmpty($this->question)){
+		if(Scene::validateNotEmpty($this->question)){
 			$errors[] = 'Kysymys ei saa olla tyhjä';
 		}
 		return $errors;
 	}
 
-	private static function isEmpty($word){
-		if($word == '' || $word == null){
-			return true;
-		} else return false;
-	}
 }

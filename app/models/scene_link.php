@@ -30,7 +30,7 @@ class SceneLink extends BaseModel{
 
 	public function validateOptionName(){
 		$errors = array();
-		if($this->option_name == '' || $this->option_name == null){
+		if(SceneLink::validateNotEmpty($this->option_name)){
 			$errors = 'Valinnan nimi ei saa olla tyhjä.';
 		}
 		return $errors;

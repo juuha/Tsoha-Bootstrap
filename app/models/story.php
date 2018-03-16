@@ -67,4 +67,27 @@ class Story extends BaseModel{
 		$this->id = $row['id'];
 	}
 
+	public function validateName(){
+		$errors = array();
+		if(Story::validateNotEmpty($this-name))){
+			$errors = 'Tarinan nimi ei saa olla tyhjä';
+		}
+		return $errors;
+	}
+
+	public function validateGenre(){
+		$errors = array();
+		if(Story::validateNotEmpty($this->genre)){
+			$errors = 'Tarinalla on oltava genre.';
+		}
+	}
+
+	public function validateSynopsis(){
+		$errors = array();
+		if(Story::validateNotEmpty($this->synopsis)){
+			$errors = 'Tarinan Kuvaus ei voi olla tyhjä';
+		}
+		return $errors;
+	}
+
 }

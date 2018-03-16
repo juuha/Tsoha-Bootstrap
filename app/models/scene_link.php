@@ -24,9 +24,15 @@ class SceneLink extends BaseModel{
 	public function save(){
 		$query = DB::connection()->prepare('INSERT INTO SceneLink (option_name, parent_scene_id, child_scene_id) VALUES (:option_name, :parent_scene_id, :child_scene_id) RETURNING id');
 		$query->execute(array('option_name' => $this->option_name, 'parent_scene_id' => $this->parent_scene_id, 'child_scene_id' => $this->child_scene_id));
-
 		$row = $query->fetch();
-
 		$this->id = $row['id'];
+	}
+
+	public function validateOptionName(){
+		$errors = array();
+		if($this->option_name == '' || $this->option_name == null){
+			$errors = 'Valinnan nimi ei saa olla tyhjä.';
+		}
+		return $errors;
 	}
 }

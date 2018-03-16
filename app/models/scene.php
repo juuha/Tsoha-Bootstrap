@@ -69,11 +69,56 @@ class Scene extends BaseModel{
 		return null;
 	}
 
+	public static function existsWith($name, $story_id){
+		$query = DB::connection()->prepare('SELECT * FROM Scene Where story_id = :story_id AND name = :name');
+		$query->execute(array('story_id' => $story_id, 'name' => $name));
+		$row = $query->fetch();
+
+		if ($row){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function save(){
 		$query = DB::connection()->prepare('INSERT INTO Scene (name, story_id, situation, question, first_scene) VALUES (:name, :story_id, :situation, :question, :first_scene) RETURNING id');
 		$query->execute(array('name' => $this->name, 'story_id' => $this->story_id, 'situation' => $this->situation, 'question' => $this->question, 'first_scene' => $this->first_scene));
 		$row = $query->fetch();
-
 		$this->id = $row['id'];
+	}
+
+	public function validateName(){
+		$errors = array();
+		if(Scene::isEmpty($this->name)){
+			$errors[] = 'Nimi ei saa olla tyhjä.';
+		}
+		if(Scene::existsWith($this->name, $this->story_id){
+			$erros[] = 'Nimi ei saa olla sama kuin toisen kohtauksen nimi tarinassa.';
+		}
+		return $errors;
+	}
+
+	public function validateSituation(){
+		$errors = array();
+		if(Scene::isEmpty($this->situation)){
+			$errors[] = 'Tilanne ei saa olla tyhjä.';
+		}
+		return $errors;
+	}
+
+
+	public function validateQuestion(){
+		$errors = array();
+		if(Scene::isEmpty($this->question)){
+			$errors[] = 'Kysymys ei saa olla tyhjä';
+		}
+		return $errors;
+	}
+
+	private static function isEmpty($word){
+		if($word == '' || $word == null){
+			return true;
+		} else return false;
 	}
 }

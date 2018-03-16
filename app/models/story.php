@@ -59,6 +59,16 @@ class Story extends BaseModel{
 		return $truth;
 	}
 
+	public static function existsWith($name){
+		$query = DB::connection()->prepare('SELECT * FROM Story WHERE name = :name');
+		$query->execute(array('name' => $name));
+		$row = $query->fetch();
+
+		if($row){
+			return true;
+		} else return false;
+	}
+
 
 	public function save(){
 		$query = DB::connection()->prepare('INSERT INTO Story (name, author_id, genre, synopsis, last_edited) VALUES (:name, :author_id, :genre, :synopsis, :last_edited) RETURNING id');
@@ -71,6 +81,9 @@ class Story extends BaseModel{
 		$errors = array();
 		if(Story::validateNotEmpty($this-name))){
 			$errors = 'Tarinan nimi ei saa olla tyhjä';
+		}
+		if(Story::existsWith($this->name)){
+			$errors = 'Tarinan nimi on jo käytössä.';
 		}
 		return $errors;
 	}

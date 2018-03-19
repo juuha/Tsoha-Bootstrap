@@ -3,6 +3,11 @@
 class SceneLink extends BaseModel{
 	public $id, $option_name, $parent_scene_id, $child_scene_id;
 
+	public function __construct($attributes){
+		parent::__construct($attributes);
+		$this->validators = array('validateOptionName');
+	}
+
 	public static function findChildrenOf($parent_scene_id){
 		$query = DB::connection()->prepare('SELECT * FROM SceneLink WHERE parent_scene_id = :parent_scene_id');
 		$query->execute(array('parent_scene_id' => $parent_scene_id));
@@ -31,7 +36,7 @@ class SceneLink extends BaseModel{
 	public function validateOptionName(){
 		$errors = array();
 		if(SceneLink::validateNotEmpty($this->option_name)){
-			$errors = 'Valinnan nimi ei saa olla tyhjä.';
+			$errors[] = 'Valinnan nimi ei saa olla tyhjä.';
 		}
 		return $errors;
 	}

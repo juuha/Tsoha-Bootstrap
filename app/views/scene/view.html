@@ -1,5 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
+{% if message %}
+<div class="alert alert-success">
+	{{message}}
+</div>
+{% endif %}
+
+{% if errors %}
+<div class="alert alert-danger">
+	<ul>
+		{% for error in errors %}
+		<li>{{error}}</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<script type="text/javascript">
+	window.onload = function(){
+		childForm();
+	};
+</script>
+{% endif %}
+
 <h3>{{story.name}}</h3> 
 <hr>
 <h1>{{scene.name}}</h1>
@@ -40,7 +62,7 @@
 	</div>
 	<div class="form-group">
 		<label>Valinnan nimi</label>
-		<input type="text" placeholder="esim. Avaa ovi 1." class="form-control" name="option_name">
+		<input type="text" placeholder="esim. Avaa ovi 1." class="form-control" name="option_name" value="{{attributes.option_name}}">
 	</div>
 	<input type="hidden" name="parent_scene_id" value="{{scene.id}}"></input>
 	<div>
@@ -49,6 +71,7 @@
 </form>
 
 <script>
+
 	function childForm(){
 		var x = document.getElementById("newChild");
 		if (x.style.display === "none") {

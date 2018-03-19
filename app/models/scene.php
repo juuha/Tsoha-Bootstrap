@@ -5,6 +5,7 @@ class Scene extends BaseModel{
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
+		$this->validators = array('validateName', 'validateSituation', 'validateQuestion');
 	}
 
 	public static function allIn($story_id){
@@ -93,8 +94,8 @@ class Scene extends BaseModel{
 		if(Scene::validateNotEmpty($this->name)){
 			$errors[] = 'Nimi ei saa olla tyhjä.';
 		}
-		if(Scene::existsWith($this->name, $this->story_id){
-			$erros[] = 'Nimi ei saa olla sama kuin toisen kohtauksen nimi tarinassa.';
+		if(Scene::existsWith($this->name, $this->story_id)){
+			$errors[] = 'Nimi tässä tarinassa on jo käytössä.';
 		}
 		return $errors;
 	}
@@ -111,7 +112,7 @@ class Scene extends BaseModel{
 	public function validateQuestion(){
 		$errors = array();
 		if(Scene::validateNotEmpty($this->question)){
-			$errors[] = 'Kysymys ei saa olla tyhjä';
+			$errors[] = 'Kysymys ei saa olla tyhjä.';
 		}
 		return $errors;
 	}

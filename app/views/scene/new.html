@@ -2,6 +2,16 @@
 {% block content %}
 <h1>Luo uusi kohtaus tarinalle {{story.name}}</h1>
 
+{% if errors %}
+<div class="alert alert-danger">
+  <ul>
+    {% for error in errors %}
+    <li>{{error}}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
 {% if (first_scene == 1) %}
 <form method="post" action="{{base_path}}/scene/first">
   {% else %}
@@ -9,15 +19,15 @@
     {% endif %}
     <div class="form-group">
       <label>Nimi</label>
-      <input type="text" class="form-control" placeholder="esim. Kohtalokas hetki" name="name">
+      <input type="text" class="form-control" placeholder="esim. Kohtalokas hetki" name="name" value="{{attributes.name}}">
     </div>
     <div class="form-group">
       <label>Tilanne</label>
-      <textarea class="form-control" placeholder="esim. Heräät huoneesta ja ihmettelet..." name="situation"></textarea>
+      <textarea class="form-control" placeholder="esim. Heräät huoneesta ja ihmettelet..." name="situation">{{attributes.situation}}</textarea>
     </div>
     <div class="form-group">
       <label>Kysymys</label>
-      <textarea class="form-control" placeholder="esim. Mitä aiot tehdä?" name="question"></textarea>
+      <textarea class="form-control" placeholder="esim. Mitä aiot tehdä?" name="question">{{attributes.question}}</textarea>
     </div>
     {% if (first_scene == 1) %}
     <input type="hidden" name="first_scene" value="1"></input>
@@ -25,7 +35,7 @@
     {% else %}
     <div class="form-group">
       <label>Valinnan nimi</label>
-      <input type="text" class="form-control" placeholder="esim. Avaa ovi 1." name="option_name"></input>
+      <input type="text" class="form-control" placeholder="esim. Avaa ovi 1." name="option_name" value="{{attributes.option_name}}"></input>
     </div>
     <input type="hidden" name="first_scene" value="0"></input>
     <input type="hidden" name="parent_scene_id" value="{{parent_scene_id}}"></input>

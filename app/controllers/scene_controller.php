@@ -20,6 +20,22 @@ class SceneController extends BaseController{
 		View::make('scene/new.html', array('story_id' => $id, 'first_scene' => 1));
 	}
 
+	public static function read($story_id){
+		$scene = Scene::firstSceneIn($story_id);
+		$story = Story::find($scene->story_id);
+		$links = SceneLink::findChildrenOf($scene->id);
+		$scenes = Scene::allIn($story_id);
+
+		View::make('scene/view.html', array('scene' => $scene,"story" => $story, 'links' => $links, 'scenes' => $scenes));
+	}
+
+	public static function list($story_id){
+		$scenes = Scene::AllIn($story_id);
+
+		View::make('scene/list.html', array('scenes' => $scenes, 'story_id' => $story_id));
+	}
+
+	//save and link a new scene to the story
 	public static function storeNew(){
 		$params = $_POST;
 
@@ -36,7 +52,6 @@ class SceneController extends BaseController{
 		$errors =  $scene->errors();
 
 		if(count($errors) == 0){
-
 			$scene->save();
 
 			$scene_link = new SceneLink(array(
@@ -60,9 +75,9 @@ class SceneController extends BaseController{
 			$errors = array_merge($errors, $scene_link->errors());
 		}
 		Redirect::to('/scene/' . $params['story_id'] .'/new', array('errors' => $errors, 'attributes' => $attributes));
-
 	}
 
+	//Save the first scene of a story
 	public static function storeFirst(){
 		$params = $_POST;
 
@@ -84,10 +99,9 @@ class SceneController extends BaseController{
 		} else {
 			Redirect::to('/story/' . $params['story_id'] . '/new_scene', array('errors' => $errors, 'attributes' => $attributes));
 		}
-
-
 	}
 
+	//Link an existing scene to another scene
 	public static function storeExisting(){
 		$params = $_POST;
 
@@ -113,20 +127,5 @@ class SceneController extends BaseController{
 			$attributes = array();
 			Redirect::to('/scene/' . $params['parent_scene_id'], array('errors' => $errors, 'attributes' => $attributes));
 		}
-	}
-
-	public static function read($story_id){
-		$scene = Scene::firstSceneIn($story_id);
-		$story = Story::find($scene->story_id);
-		$links = SceneLink::findChildrenOf($scene->id);
-		$scenes = Scene::allIn($story_id);
-
-		View::make('scene/view.html', array('scene' => $scene,"story" => $story, 'links' => $links, 'scenes' => $scenes));
-	}
-
-	public static function list($story_id){
-		$scenes = Scene::AllIn($story_id);
-
-		View::make('scene/list.html', array('scenes' => $scenes, 'story_id' => $story_id));
 	}
 }

@@ -21,16 +21,23 @@ class StoryController extends BaseController{
 	public static function store(){
 		$params = $_POST;
 
-		$story = new Story(array(
+		$attributes = array(
 			'name' => $params['name'],
 			'author_id' => 1, //TODO
 			'genre' => $params['genre'],
 			'synopsis' => $params['synopsis']
-			));
+			);
 
-		$story->save();
+		$story = new Story($attributes);
+		$errors = $story->errors();
+		if(count($errors) == 0){
+			$story->save();
 
-		Redirect::to('/story/' . $story->id, array('message' => 'Tarina lisätty kirjastoon.'));
+			Redirect::to('/story/' . $story->id, array('message' => 'Tarina lisätty kirjastoon.'));
+		} else {
+			Redirect::to('/story/new', array('errors' => $errors, 'attributes' => $attributes));
+		}
+
 	}
 	//TODO
 	public static function edit($id){

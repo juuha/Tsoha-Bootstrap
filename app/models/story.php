@@ -5,6 +5,7 @@ class Story extends BaseModel{
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
+		$this->validators = array('validateName', 'validateGenre', 'validateSynopsis');
 	}
 
 	public static function all(){
@@ -79,11 +80,11 @@ class Story extends BaseModel{
 
 	public function validateName(){
 		$errors = array();
-		if(Story::validateNotEmpty($this-name))){
-			$errors = 'Tarinan nimi ei saa olla tyhjä';
+		if(Story::validateNotEmpty($this->name)){
+			$errors[] = 'Tarinan nimi ei saa olla tyhjä';
 		}
 		if(Story::existsWith($this->name)){
-			$errors = 'Tarinan nimi on jo käytössä.';
+			$errors[] = 'Tarinan nimi on jo käytössä.';
 		}
 		return $errors;
 	}
@@ -91,14 +92,15 @@ class Story extends BaseModel{
 	public function validateGenre(){
 		$errors = array();
 		if(Story::validateNotEmpty($this->genre)){
-			$errors = 'Tarinalla on oltava genre.';
+			$errors[] = 'Tarinalla on oltava genre.';
 		}
+		return $errors;
 	}
 
 	public function validateSynopsis(){
 		$errors = array();
 		if(Story::validateNotEmpty($this->synopsis)){
-			$errors = 'Tarinan Kuvaus ei voi olla tyhjä';
+			$errors[] = 'Tarinan kuvaus ei voi olla tyhjä';
 		}
 		return $errors;
 	}

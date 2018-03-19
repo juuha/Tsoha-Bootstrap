@@ -1,22 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Luo uusi tarina!</h1>
+{% if errors%}
+<div class="alert alert-danger">
+  {% for error in errors%}
+  <li>{{error}}</li>
+  {% endfor %}
+</div>
+{% endif %}
 
-  <form method="post" action="{{base_path}}/story">
-    <div class="form-group">
-      <label>Nimi</label>
-      <input type="text" class="form-control" placeholder="esim. Mahtitarina" name="name">
-    </div>
-    <div class="form-group">
-      <label>Genre</label>
-      <input type="text" class="form-control" placeholder="esim. vähän kaikkea" name="genre">
-    </div>
-    <div class="form-group">
-      <label>Kuvaus</label>
-      <textarea class="form-control" placeholder="esim. Tarina kertoo henkilöstä, joka eli onnellisesti elämänsä loppuun saakka." name="synopsis"></textarea>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Tallenna</button>
-    </div>
-  </form>
+<h1>Luo uusi tarina!</h1>
+
+<form method="post" action="{{base_path}}/story">
+  <div class="form-group">
+    <label>Nimi</label>
+    <input type="text" class="form-control" placeholder="esim. Mahtitarina" name="name" value="{{attributes.name}}">
+  </div>
+  <div class="form-group">
+    <label>Genre</label>
+    <input type="text" class="form-control" placeholder="esim. vähän kaikkea" name="genre" value="{{attributes.genre}}">
+  </div>
+  <div class="form-group">
+    <label>Tiivistelmä</label>
+    <textarea class="form-control" placeholder="esim. Tarina kertoo henkilöstä, joka eli onnellisesti elämänsä loppuun saakka." name="synopsis">{{attributes.synopsis}}</textarea>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Tallenna</button>
+  </div>
+</form>
 {% endblock %}

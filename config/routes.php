@@ -24,7 +24,7 @@
 
   $routes->get('/scene/:id/edit', function($id){
     SceneController::edit($id);
-  })
+  });
 
   $routes->post('/scene/new', function(){
     SceneController::storeNew();

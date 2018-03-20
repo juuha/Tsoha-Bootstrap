@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Muokkaa kohtausta {{scene.name}}</h1>
+
+{% if errors %}
+<div class="alert alert-danger">
+  <ul>
+    {% for error in errors %}
+    <li>{{error}}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{{base_path}}/scene/{{scene.id}}/edit">
+  <div class="form-group">
+    <label>Nimi</label>
+    <input type="text" class="form-control" placeholder="esim. Kohtalokas hetki" name="name" value="{{scene.name}}">
+  </div>
+  <div class="form-group">
+    <label>Tilanne</label>
+    <textarea class="form-control" placeholder="esim. Heräät huoneesta ja ihmettelet..." name="situation">{{scene.situation}}</textarea>
+  </div>
+  <div class="form-group">
+    <label>Kysymys</label>
+    <textarea class="form-control" placeholder="esim. Mitä aiot tehdä?" name="question">{{scene.question}}</textarea>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Tallenna</button>    
+  </div>
+</form>
+
+{% endblock %}

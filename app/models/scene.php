@@ -122,4 +122,9 @@ class Scene extends BaseModel{
 		$query->execute(array('id' => $this->id));
 	}
 
+	public function update(){
+		$query = DB::connection()->prepare('UPDATE Scene Set name = :name, situation = :situation, question = :question WHERE id = :id');
+		$query->execute(array('name' => $this->name, 'situation' => $this->situation, 'question' => $this->question, 'id' => $this->id));
+	}
+
 }

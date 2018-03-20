@@ -130,11 +130,31 @@ class SceneController extends BaseController{
 	}
 
 	public static function edit($id){
-
+		$scene = Scene::find($id);
+		View::make('scene/edit.html', array('scene' => $scene));
 	}
 
 	public static function update($id){
+		$params = $_POST;
 
+		$attributes = array(
+			'id' => $id,
+			'name' => $params['name'],
+			'situation' => $params['situation'],
+			'question' => $params['question']
+			);
+
+		
+
+		$scene = new Scene($attributes);
+		$errors = $scene->errors();
+
+		if (count($errors) == 0){
+			$scene->update();
+			Redirect::to('/scene/' . $scene->id, array('message' => 'Kohtaus päivitetty onnistuneesti.'));
+		} else {
+			View::make('scene/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'scene' => $scene));
+		}
 	}
 
 	public static function delete($id){

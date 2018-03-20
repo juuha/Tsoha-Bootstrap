@@ -55,8 +55,6 @@ class StoryController extends BaseController{
 			'synopsis' => $params['synopsis']
 			);
 
-		$story = Story::find($attributes['id']);
-
 		$story = new Story($attributes);
 		$errors = $story->errors();
 

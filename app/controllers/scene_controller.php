@@ -128,4 +128,24 @@ class SceneController extends BaseController{
 			Redirect::to('/scene/' . $params['parent_scene_id'], array('errors' => $errors, 'attributes' => $attributes));
 		}
 	}
+
+	public static function edit($id){
+
+	}
+
+	public static function update($id){
+
+	}
+
+	public static function delete($id){
+		$scene = Scene::find($id);
+		$story_id = $scene->story_id;
+		$scene_links = SceneLink::findFamilyOf($id);
+		foreach ($scene_links as $scene_link) {
+			$scene_link->delete();
+		}
+		$scene->delete();
+
+		Redirect::to('/story/' . $story_id . '/scenes', array('message' => 'Kohtaus poistettu onnistuneesti.'));
+	}
 }

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms%}
+
 {% if message %}
 <div class="alert alert-success">
 	{{message}}
@@ -43,13 +45,15 @@
 </p>
 <hr>
 <p>
-	<button class="btn btn-success" onclick="childForm()">Lisää uusi lapsi</button>
-	<a href="{{base_path}}/scene/{{scene.id}}/new" class="btn btn-success">Luo uusi lapsi</a>
-	<a href="{{base_path}}/scene/{{scene.id}}/edit" class="btn btn-default">Muokkaa</a>
-	<a class="btn btn-danger" href="#">Poista</a>
+	<div style="display: inline-block;">
+		<button class="btn btn-success" onclick="childForm()">Lisää uusi lapsi</button>
+		<a href="{{base_path}}/scene/{{scene.id}}/new" class="btn btn-success">Luo uusi lapsi</a>
+		<a href="{{base_path}}/scene/{{scene.id}}/edit" class="btn btn-default">Muokkaa</a>
+		{{forms.delete_button("#{base_path}/scene/#{scene.id}/delete")}}
+	</div>
 </p>
 
-<hr>
+<hr><hr> <!-- Other disappears for some reason -->
 
 <form id="newChild" style="display: none;" method="post" action="{{base_path}}/scene/existing">
 	<div class="form-group">

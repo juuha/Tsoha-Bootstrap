@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
+
 <h1> Tarinan {{story.name}} kohtaukset</h1>
 
 <table class="table table-striped table-bordered">
@@ -15,8 +17,8 @@
 		<tr>
 			<td><a href="{{base_path}}/scene/{{scene.id}}">{{scene.name}}</a></td>
 			<td>
-				<a class="btn btn-default btn-sm" href="{{base_path}}/scene/:{{scene_id}}/edit">Muokkaa</a>
-				<a class="btn btn-danger btn-sm" href="TODO">Poista</a>
+				<a class="btn btn-default btn-sm" href="{{base_path}}/scene/{{scene.id}}/edit">Muokkaa</a>
+				{{forms.delete_button("#{base_path}/scene/#{scene.id}/delete")}}
 			</td>
 		</tr>
 		{% endfor %}

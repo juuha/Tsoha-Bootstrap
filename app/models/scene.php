@@ -117,4 +117,9 @@ class Scene extends BaseModel{
 		return $errors;
 	}
 
+	public function delete(){
+		$query = DB::connection()->prepare('DELETE FROM Scene WHERE id = :id');
+		$query->execute(array('id' => $this->id));
+	}
+
 }

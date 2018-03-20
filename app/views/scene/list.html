@@ -2,6 +2,12 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
+{% if message %}
+	<div class="alert alert-success">
+	{{message}}
+	</div>
+{% endif %}
+
 <h1> Tarinan {{story.name}} kohtaukset</h1>
 
 <table class="table table-striped table-bordered">

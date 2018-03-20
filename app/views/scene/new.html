@@ -29,9 +29,9 @@
       <label>Kysymys</label>
       <textarea class="form-control" placeholder="esim. Mitä aiot tehdä?" name="question">{{attributes.question}}</textarea>
     </div>
+    <input type="hidden" name="story_id" value="{{story.id}}">
     {% if (first_scene == 1) %}
     <input type="hidden" name="first_scene" value="1"></input>
-    <input type="hidden" name="story_id" value="{{story_id}}">
     {% else %}
     <div class="form-group">
       <label>Valinnan nimi</label>
@@ -39,7 +39,6 @@
     </div>
     <input type="hidden" name="first_scene" value="0"></input>
     <input type="hidden" name="parent_scene_id" value="{{parent_scene_id}}"></input>
-    <input type="hidden" name="story_id" value="{{story.id}}">
     {% endif %}
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Tallenna</button>    

@@ -5,9 +5,7 @@
 <h1>{{story.name}}</h1>
 <!-- Painikkeet tähän -->
 <p>
-	<form method="post" action="{{base_path}}/story/{{story.id}}/delete" style="display: inline-block;">
-		<button type="submit" class="btn btn-danger">Poista</button>
-	</form>
+	{{forms.delete_button("#{base_path}/story/#{story.id}/delete")}}
 	<a href="{{base_path}}/story/{{story.id}}/edit" class="btn btn-default">Muokkaa</a>
 	<a href="{{base_path}}/story/{{story.id}}/scenes" class="btn btn-info">Kaikki kohtaukset</a>
 </p>

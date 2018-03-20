@@ -29,15 +29,16 @@
       <label>Kysymys</label>
       <textarea class="form-control" placeholder="esim. Mitä aiot tehdä?" name="question">{{attributes.question}}</textarea>
     </div>
-    <input type="hidden" name="story_id" value="{{story.id}}">
     {% if (first_scene == 1) %}
     <input type="hidden" name="first_scene" value="1"></input>
+    <input type="hidden" name="story_id" value="{{story_id}}">
     {% else %}
     <div class="form-group">
       <label>Valinnan nimi</label>
       <input type="text" class="form-control" placeholder="esim. Avaa ovi 1." name="option_name" value="{{attributes.option_name}}"></input>
     </div>
     <input type="hidden" name="first_scene" value="0"></input>
+    <input type="hidden" name="story_id" value="{{story.id}}">
     <input type="hidden" name="parent_scene_id" value="{{parent_scene_id}}"></input>
     {% endif %}
     <div class="form-group">

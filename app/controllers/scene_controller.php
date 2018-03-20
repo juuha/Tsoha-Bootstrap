@@ -74,7 +74,7 @@ class SceneController extends BaseController{
 				));
 			$errors = array_merge($errors, $scene_link->errors());
 		}
-		Redirect::to('/scene/' . $params['story_id'] .'/new', array('errors' => $errors, 'attributes' => $attributes));
+		Redirect::to('/scene/' . $params['parent_scene_id'] .'/new', array('errors' => $errors, 'attributes' => $attributes));
 	}
 
 	//Save the first scene of a story

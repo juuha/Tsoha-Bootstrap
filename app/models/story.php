@@ -59,7 +59,7 @@ class Story extends BaseModel{
 
 	public static function existsWith($name){
 		$query = DB::connection()->prepare('SELECT * FROM Story WHERE name = :name');
-		$query->execute(array('name' => $name));
+		$query->execute(array('name' => $name, 'id' => $id));
 		$row = $query->fetch();
 
 		if($row){
@@ -74,6 +74,11 @@ class Story extends BaseModel{
 		$this->id = $row['id'];
 	}
 
+	public function update(){
+		$query = DB::connection()->prepare('UPDATE Story SET name = :name, genre = :genre, synopsis = :synopsis, last_edited = :last_edited WHERE id = :id');
+		$query->execute(array('name' => $this->name, 'genre' => $this->genre, 'synopsis' => $this->synopsis, 'id' => $this->id, 'last_edited' => date("Y-m-d")));
+	}
+
 	public function delete(){
 		$query = DB::connection()->prepare('DELETE FROM Story WHERE id = :id');
 		$query->execute(array('id' => $this->id));
@@ -83,10 +88,10 @@ class Story extends BaseModel{
 		$errors = array();
 		if(Story::validateNotEmpty($this->name)){
 			$errors[] = 'Tarinan nimi ei saa olla tyhjä';
-		}
+		}/* Doesn't work when editing story and not changing the name.
 		if(Story::existsWith($this->name)){
 			$errors[] = 'Tarinan nimi on jo käytössä.';
-		}
+		}*/
 		return $errors;
 	}
 

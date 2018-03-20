@@ -42,7 +42,7 @@ class StoryController extends BaseController{
 
 	public static function edit($id){
 		$story = Story::find($id);
-		View::make('story/edit.html', array('story' => $attributes));
+		View::make('story/edit.html', array('story' => $story));
 	}
 
 	public static function update($id){
@@ -55,6 +55,8 @@ class StoryController extends BaseController{
 			'synopsis' => $params['synopsis']
 			);
 
+		$story = Story::find($attributes['id']);
+
 		$story = new Story($attributes);
 		$errors = $story->errors();
 
@@ -62,7 +64,7 @@ class StoryController extends BaseController{
 			$story->update();
 			Redirect::to('/story/'. $story->id, array('message' => 'Tarinaa on muokattu onnistuneesti.'));
 		} else {
-			View::make('story/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+			View::make('story/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'story' => $story));
 		}
 	}
 

@@ -1,26 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Muokkaa tarinaa {{story.name}}.</h1>
 
-  <form method="update" action="{{base_path}}/story/{{story.id}}/edit">
-    <div class="form-group">
-      <label>Nimi</label>
-      <input type="text" class="form-control" value="{{story.name}}">
-    </div>
-    <div class="form-group">
-      <label>Kirjoittaja</label>
-      <input type="text" class="form-control" value="TODO">
-    </div>
-    <div class="form-group">
-      <label>Genre</label>
-      <input type="text" class="form-control" value="{{story.genre}}">
-    </div>
-    <div class="form-group">
-      <label>Kuvaus</label>
-      <textarea class="form-control">{{story.synopsis}}</textarea>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Tallenna</button>
-    </div>
-  </form>
+<h1>Muokkaa tarinaa {{story.name}}.</h1>
+
+{% if errors %}
+<div class="alert alert-danger">
+  {% for error in errors %}
+  <li>{{error}}</li>
+  {% endfor %}
+</div>
+{% endif %}
+
+<form method="post" action="{{base_path}}/story/{{story.id}}/edit">
+  <div class="form-group">
+    <label>Nimi</label>
+    <input type="text" class="form-control" name="name" value="{{story.name}}">
+  </div>
+  <div class="form-group">
+    <label>Genre</label>
+    <input type="text" class="form-control" name="genre" value="{{story.genre}}">
+  </div>
+  <div class="form-group">
+    <label>Tiivistelmä</label>
+    <textarea class="form-control" name="synopsis">{{story.synopsis}}</textarea>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Tallenna</button>
+  </div>
+</form>
 {% endblock %}

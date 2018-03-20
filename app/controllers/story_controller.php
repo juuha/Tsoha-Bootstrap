@@ -39,8 +39,45 @@ class StoryController extends BaseController{
 		}
 
 	}
-	//TODO
-	public static function edit($id){
 
+	public static function edit($id){
+		$story = Story::find($id);
+		View::make('story/edit.html', array('story' => $attributes));
+	}
+
+	public static function update($id){
+		$params = $_POST;
+
+		$attributes = array(
+			'id' => $id,
+			'name' => $params['name'],
+			'genre' => $params['genre'],
+			'synopsis' => $params['synopsis']
+			);
+
+		$story = new Story($attributes);
+		$errors = $story->errors();
+
+		if(count($errors) == 0){
+			$story->update();
+			Redirect::to('/story/'. $story->id, array('message' => 'Tarinaa on muokattu onnistuneesti.'));
+		} else {
+			View::make('story/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+		}
+	}
+
+	public static function delete($id){
+		$story = Story::find($id);
+		$scenes = Scene::allIn($story->id);
+		foreach ($scenes as $scene) {
+			$scene_links = SceneLink::findFamilyOf($scene->id);
+			foreach ($scene_links as $link) {
+				$link->delete();
+			}
+			$scene->delete();
+		}
+		$story->delete();
+
+		Redirect::to('/story', array('message' => 'Tarina poistettu onnistuneesti.'));
 	}
 }

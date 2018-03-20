@@ -53,11 +53,8 @@ class Story extends BaseModel{
 		$query->execute(array('story_id' => $story_id));
 		$row = $query->fetch();
 		if ($row){
-			$truth = true;
-		} else {
-			$truth = false;
-		}
-		return $truth;
+			return true;
+		} else return false;
 	}
 
 	public static function existsWith($name){
@@ -70,12 +67,16 @@ class Story extends BaseModel{
 		} else return false;
 	}
 
-
 	public function save(){
 		$query = DB::connection()->prepare('INSERT INTO Story (name, author_id, genre, synopsis, last_edited) VALUES (:name, :author_id, :genre, :synopsis, :last_edited) RETURNING id');
 		$query->execute(array('name' => $this->name, 'author_id' => $this->author_id, 'genre' => $this->genre, 'synopsis' => $this->synopsis, 'last_edited' => date("Y-m-d")));
 		$row = $query->fetch();
 		$this->id = $row['id'];
+	}
+
+	public function delete(){
+		$query = DB::connection()->prepare('DELETE FROM Story WHERE id = :id');
+		$query->execute(array('id' => $this->id));
 	}
 
 	public function validateName(){

@@ -8,9 +8,14 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      $sceneLinks = SceneLink::findChildrenOf(1);
+      $story = new Scene(array(
+        'name' => 'Waking Up',
+        'story_id' => '1'
+        ));
 
-      Kint::dump($sceneLinks);
+      $errors = $story->errors();
+
+      Kint::dump($errors);
       
     }
 

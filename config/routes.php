@@ -22,6 +22,10 @@
     SceneController::list($story_id);
   });
 
+  $routes->get('/scene/:id/edit', function($id){
+    SceneController::edit($id);
+  })
+
   $routes->post('/scene/new', function(){
     SceneController::storeNew();
   });
@@ -32,6 +36,14 @@
 
   $routes->post('/scene/existing', function(){
     SceneController::storeExisting();
+  });
+
+  $routes->post('/scene/:id/delete', function($id){
+    SceneController::delete($id);
+  });
+
+  $routes->post('/scene/:id/edit', function($id){
+    SceneController::update($id);
   });
 
 
@@ -49,8 +61,20 @@
     StoryController::view($id);
   });
 
+  $routes->get('/story/:id/edit', function($id){
+    StoryController::edit($id);
+  });
+
   $routes->post('/story', function(){
     StoryController::store();
+  });
+
+  $routes->post('/story/:id/edit', function($id){
+    StoryController::update($id);
+  });
+
+  $routes->post('/story/:id/delete', function($id){
+    StoryController::delete($id);
   });
 
 

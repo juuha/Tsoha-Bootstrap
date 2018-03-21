@@ -6,6 +6,11 @@ class AuthorController extends BaseController{
 		View::make('author/login.html');
 	}
 
+	public static function logout(){
+      $_SESSION['author'] = null;
+      Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
+    }
+
 	public static function handle_login(){
 		$params = $_POST;
 

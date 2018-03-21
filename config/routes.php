@@ -1,12 +1,16 @@
 <?php
+
+  function check_logged_in(){
+    BaseController::check_logged_in();
+  }
   
   //SceneController routet
 
-  $routes->get('/scene/:id/new', function($id){
+  $routes->get('/scene/:id/new', 'check_logged_in', function($id){
     SceneController::new($id);
   });
 
-  $routes->get('/story/:id/new_scene', function($story_id){
+  $routes->get('/story/:id/new_scene', 'check_logged_in', function($story_id){
     SceneController::newFirstScene($story_id);
   });
 
@@ -22,31 +26,31 @@
     SceneController::list($story_id);
   });
 
-  $routes->get('/scene/:id/edit', function($id){
+  $routes->get('/scene/:id/edit', 'check_logged_in', function($id){
     SceneController::edit($id);
   });
 
-  $routes->post('/scene/new', function(){
+  $routes->post('/scene/new', 'check_logged_in', function(){
     SceneController::storeNew();
   });
 
-  $routes->post('/scene/first', function(){
+  $routes->post('/scene/first', 'check_logged_in', function(){
     SceneController::storeFirst();
   });
 
-  $routes->post('/scene/existing', function(){
+  $routes->post('/scene/existing', 'check_logged_in', function(){
     SceneController::storeExisting();
   });
 
-  $routes->post('/scene/:id/delete', function($id){
+  $routes->post('/scene/:id/delete', 'check_logged_in', function($id){
     SceneController::delete($id);
   });
 
-  $routes->post('/scene/:id/edit', function($id){
+  $routes->post('/scene/:id/edit', 'check_logged_in', function($id){
     SceneController::update($id);
   });
 
-  $routes->post('/scene/:id/delete/child', function($id){
+  $routes->post('/scene/:id/delete/child', 'check_logged_in', function($id){
     SceneController::deleteLink($id);
   });
 
@@ -57,7 +61,7 @@
     StoryController::list();
   });
 
-  $routes->get('/story/new', function(){
+  $routes->get('/story/new', 'check_logged_in', function(){
     StoryController::new();
   });
 
@@ -65,7 +69,7 @@
     StoryController::view($id);
   });
 
-  $routes->get('/story/:id/edit', function($id){
+  $routes->get('/story/:id/edit', 'check_logged_in', function($id){
     StoryController::edit($id);
   });
 
@@ -73,15 +77,15 @@
     StoryController::listFrom($author_id);
   });
 
-  $routes->post('/story', function(){
+  $routes->post('/story', 'check_logged_in', function(){
     StoryController::store();
   });
 
-  $routes->post('/story/:id/edit', function($id){
+  $routes->post('/story/:id/edit', 'check_logged_in', function($id){
     StoryController::update($id);
   });
 
-  $routes->post('/story/:id/delete', function($id){
+  $routes->post('/story/:id/delete', 'check_logged_in', function($id){
     StoryController::delete($id);
   });
 
@@ -94,6 +98,10 @@
 
   $routes->post('/login', function(){
     AuthorController::handle_login();
+  });
+
+  $routes->post('/logout', function(){
+    AuthorController::logout();
   });
 
 

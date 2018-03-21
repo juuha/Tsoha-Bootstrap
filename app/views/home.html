@@ -14,7 +14,7 @@
 	{% endif %}
 	<li><a href="{{base_path}}/story">Kaikki tarinat</a></li>  
 	{% if user_logged_in %}
-	<li><a href="{{base_path}}/story/author/{{user_logged_in.id}}">Omat tarinat</a></li>  
+	<li><a href="{{base_path}}/author/{{user_logged_in.id}}">Omat tarinat</a></li>  
 	{% endif %}
 </ul>
 

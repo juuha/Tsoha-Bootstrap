@@ -99,6 +99,12 @@ class Story extends BaseModel{
 		$query->execute(array('name' => $this->name, 'genre' => $this->genre, 'synopsis' => $this->synopsis, 'id' => $this->id, 'last_edited' => date("Y-m-d")));
 	}
 
+	//kun jotain muutoksia tapahtuu tarinan kohtauksiin.
+	public function edited(){
+		$query = DB::connection()->prepare('UPDATE STORY Set last_edited = :last_edited');
+		$query->execute(array('last_edited' => date("Y-m-d")));
+	}
+
 	public function delete(){
 		$query = DB::connection()->prepare('DELETE FROM Story WHERE id = :id');
 		$query->execute(array('id' => $this->id));

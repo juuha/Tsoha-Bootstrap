@@ -29,6 +29,10 @@ class StoryController extends BaseController{
 	public static function store(){
 		$params = $_POST;
 
+		if (!StoryController::user_is_owner($params['author_id'])){
+			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+		}
+
 		$attributes = array(
 			'name' => $params['name'],
 			'author_id' => $params['author_id'],
@@ -50,20 +54,31 @@ class StoryController extends BaseController{
 
 	public static function edit($id){
 		$story = Story::find($id);
+
+		if (!StoryController::user_is_owner($story->author_id)){
+			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+		}
+
 		View::make('story/edit.html', array('story' => $story));
 	}
 
 	public static function update($id){
 		$params = $_POST;
 
+		if (!StoryController::user_is_owner($params['author_id'])){
+			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+		}
+
 		$attributes = array(
 			'id' => $id,
 			'name' => $params['name'],
+			'author_id' => $params['author_id'],
 			'genre' => $params['genre'],
 			'synopsis' => $params['synopsis']
 			);
 
 		$story = new Story($attributes);
+
 		$errors = $story->errors();
 
 		if(count($errors) == 0){
@@ -76,6 +91,11 @@ class StoryController extends BaseController{
 
 	public static function delete($id){
 		$story = Story::find($id);
+
+		if (!StoryController::user_is_owner($story->author_id)){
+			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+		}
+
 		$scenes = Scene::allIn($story->id);
 		foreach ($scenes as $scene) {
 			$scene_links = SceneLink::findFamilyOf($scene->id);
@@ -88,4 +108,5 @@ class StoryController extends BaseController{
 
 		Redirect::to('/story', array('message' => 'Tarina poistettu onnistuneesti.'));
 	}
+
 }

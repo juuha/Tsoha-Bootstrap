@@ -24,6 +24,7 @@
     <textarea class="form-control" placeholder="esim. Tarina kertoo henkilöstä, joka eli onnellisesti elämänsä loppuun saakka." name="synopsis">{{attributes.synopsis}}</textarea>
   </div>
   <div class="form-group">
+    <input type="hidden" name="author_id" value="{{user_logged_in.id}}"></input>
     <button type="submit" class="btn btn-primary">Tallenna</button>
   </div>
 </form>

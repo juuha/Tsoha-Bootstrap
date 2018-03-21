@@ -67,7 +67,23 @@ class SceneLink extends BaseModel{
 	public static function findScenesAndLinksOf($parent_scene_id){
 		$query = DB::connection()->prepare('SELECT *, SceneLink.id as scene_link_id FROM SceneLink INNER JOIN Scene ON SceneLink.child_scene_id = Scene.id AND SceneLink.parent_scene_id = :parent_scene_id');
 		$query->execute(array('parent_scene_id' => $parent_scene_id));
-		return $query->fetchAll();
+		$rows = $query->fetchAll();
+		$child_links = Array();
+
+		foreach ($rows as $row) {
+			$child_links[] = array(
+				'id' => $row['id'],
+				'name' => $row['name'],
+				'situation' => $row['situation'],
+				'question' => $row['question'],
+				'scene_link_id' => $row['scene_link_id'],
+				'option_name' => $row['option_name'],
+				'child_scene_id' => $row['child_scene_id'],
+				'parent_scene_id' => $row['parent_scene_id']
+				);
+		}
+
+		return $child_links;
 	}
 
 	public static function find($id){

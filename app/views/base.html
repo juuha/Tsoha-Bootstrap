@@ -42,10 +42,11 @@
             <li><a href="{{base_path}}">Etusivu</a></li>
             <li><a href="{{base_path}}/story">Tarinat</a></li>
           </ul>
-
+          {% if not user_logged_in %}
           <ul class="nav navbar-nav navbar-right">
             <li><a href="{{base_path}}/login">Login</a></li>
           </ul>
+          {% endif %}
         </div>
       </div>
     </nav>

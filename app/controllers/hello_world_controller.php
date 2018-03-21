@@ -8,15 +8,9 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      $kasi = Scene::find(1);
-      $children = SceneLink::findChildrenOf(6);
-      $scene_links = SceneLink::findScenesAndLinksOf(6);
-
-      Kint::dump($kasi);
-
-      Kint::dump($children);
-      Kint::dump($scene_links);
+      $all = Story::all();
       
+      Kint::dump($all);
     }
 
     public static function login(){

@@ -4,14 +4,17 @@
 
 <h1>{{story.name}}</h1>
 <!-- Painikkeet tähän -->
+{% if user_logged_in %}
 <p>
 	{{forms.delete_button("#{base_path}/story/#{story.id}/delete")}}
 	<a href="{{base_path}}/story/{{story.id}}/edit" class="btn btn-default">Muokkaa</a>
 	<a href="{{base_path}}/story/{{story.id}}/scenes" class="btn btn-info">Kaikki kohtaukset</a>
 </p>
+{% endif %}
+
 <!-- Tiedot tulee listana tähän -->
 <ul>
-	<li><strong>Kirjoittaja: </strong>{{story.author_id}}</li>
+	<li><strong>Kirjoittaja: </strong><a href="{{base_path}}/author/{{author.id}}">{{author.name}}</a></li>
 	<li><strong>Genre: </strong>{{story.genre}}</li>
 	<li><strong>Muokkauspäivä:</strong> {{story.last_edited}}</li>
 </ul>

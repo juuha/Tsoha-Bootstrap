@@ -9,9 +9,12 @@
 
 <p>Hyödyllisiä linkkejä:</p>
 <ul>
-	<li><a href="{{base_path}}/login">Kirjaudu sisään!</a></li>
 	{% if not user_logged_in %}
-	<li><a href="{{base_path}}/story">Tarinat</a></li>  
+	<li><a href="{{base_path}}/login">Kirjaudu sisään!</a></li>
+	{% endif %}
+	<li><a href="{{base_path}}/story">Kaikki tarinat</a></li>  
+	{% if user_logged_in %}
+	<li><a href="{{base_path}}/story/author/{{user_logged_in.id}}">Omat tarinat</a></li>  
 	{% endif %}
 </ul>
 

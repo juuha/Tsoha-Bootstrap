@@ -43,6 +43,7 @@
 <p>
 	<a href="{{base_path}}/story/{{story.id}}" class="btn btn-default">Palaa tarinan kuvaukseen</a>
 </p>
+	{% if user_logged_in %}
 <hr>
 <p>
 	<div style="display: inline-block;">
@@ -53,10 +54,11 @@
 		{{forms.delete_button("#{base_path}/scene/#{scene.id}/delete")}}
 	</div>
 </p>
+	{% endif %}
 
-<hr><hr> <!-- Other disappears for some reason -->
 
 <form id="deleteChild" style="display: none;" method="post" action="{{base_path}}/scene/{{scene.id}}/delete/child">
+	<hr><hr>
 	<div class="form-group">
 		<label>Lapsen nimi</label>
 		<select name="scene_link_id" size="5" class="form-control">
@@ -72,6 +74,7 @@
 </form>
 
 <form id="newChild" style="display: none;" method="post" action="{{base_path}}/scene/existing">
+	<hr><hr>
 	<div class="form-group">
 		<label>Lapsen nimi</label>
 		<select name="child_scene_id" size="5" class="form-control">

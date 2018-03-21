@@ -9,20 +9,21 @@ class Story extends BaseModel{
 	}
 
 	public static function all(){
-		$query = DB::connection()->prepare('SELECT * FROM Story');
+		$query = DB::connection()->prepare('SELECT Story.name as name, Author.name as author_name, Story.genre, Story.synopsis, Story.last_edited, Author.id as author_id, Story.id FROM Story LEFT JOIN Author ON Story.author_id = Author.id');
 		$query->execute();
 		$rows = $query->fetchAll();
 		$stories = array();
 
 		foreach ($rows as $row) {
-			$stories[] = new Story(array(
+			$stories[] = array(
 				'id' => $row['id'],
 				'name' => $row['name'],
+				'author_name' => $row['author_name'],
 				'author_id' => $row['author_id'],
 				'genre' => $row['genre'],
 				'synopsis' => $row['synopsis'],
 				'last_edited' => $row['last_edited']
-				));
+				);
 		}
 
 		return $stories;
@@ -46,6 +47,25 @@ class Story extends BaseModel{
 		}
 
 		return null;
+	}
+
+	public static function allFrom($author_id){
+		$query = DB::connection()->prepare('SELECT * FROM Story WHERE author_id = :author_id');
+		$query->execute(array('author_id' => $author_id));
+		$rows = $query->fetchAll();
+		$stories = Array();
+
+		foreach ($rows as $row) {
+			$stories[] = new Story(array(
+				'id' => $row['id'],
+				'name' => $row['name'],
+				'genre' => $row['genre'],
+				'synopsis' => $row['genre'],
+				'last_edited' => $row['last_edited']
+				));
+		}
+
+		return $stories;
 	}
 
 	public static function hasFirstScene($story_id){

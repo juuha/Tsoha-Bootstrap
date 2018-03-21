@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="page-header">
-    <h1>Tervetuloa Xroadsiin!</h1>
-  </div>
+<div class="page-header">
+	<h1>Tervetuloa Xroadsiin!</h1>
+</div>
 
-  <h3>Xroads on monipolkuisten tarinoiden lukemiseen ja kirjoittamiseen tarkoitettu sivusto.</h3>
+<h3>Xroads on monipolkuisten tarinoiden lukemiseen ja kirjoittamiseen tarkoitettu sivusto.</h3>
 
-  <p>Hyödyllisiä linkkejä:</p>
-  <ul>
-  	<li><a href="{{base_path}}/suunnitelmat/login">Kirjaudu sisään!</a></li>
-		<li><a href="{{base_path}}/story">Tarinat</a></li>  
-  </ul>
+<p>Hyödyllisiä linkkejä:</p>
+<ul>
+	<li><a href="{{base_path}}/login">Kirjaudu sisään!</a></li>
+	{% if not user_logged_in %}
+	<li><a href="{{base_path}}/story">Tarinat</a></li>  
+	{% endif %}
+</ul>
 
 {% endblock %}

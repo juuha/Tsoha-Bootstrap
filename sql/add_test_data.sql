@@ -1,5 +1,5 @@
 --Author-taulun testidata
-INSERT INTO Author (name, password) VALUES ('J', 'eihyväsalis');
+INSERT INTO Author (name, password) VALUES ('testi', 'salis');
 
 
 --Story-taulun testidata

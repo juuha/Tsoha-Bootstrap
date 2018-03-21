@@ -82,6 +82,17 @@
   });
 
 
+  //Login routet
+
+  $routes->get('/login', function(){
+    AuthorController::login();
+  });
+
+  $routes->post('/login', function(){
+    AuthorController::handle_login();
+  });
+
+
   //Testi ja suunnitelma routet
   
   $routes->get('/', function() {

@@ -9,7 +9,7 @@ class Author extends BaseModel{
 	}
 
 	public static function authenticate($name, $password){
-		$query = DB::connection()->prepare('SELECT * FROM Author WHERE name = :name AND password = :password LIMIT 1');
+		$query = DB::connection()->prepare('SELECT * FROM Author WHERE UPPER(name) = UPPER(:name) AND password = :password LIMIT 1');
 		$query->execute(array('name' => $name, 'password' => $password));
 		$row = $query->fetch();
 

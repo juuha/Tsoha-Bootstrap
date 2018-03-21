@@ -92,7 +92,7 @@ class Scene extends BaseModel{
 		if(Scene::validateNotEmpty($this->name)){
 			$errors[] = 'Nimi ei saa olla tyhjä.';
 		}
-		/* Doesn't work with editing scene, when name doesn't change
+		/* Ei toimi jos muokkauksessa ei muokata nimeä.
 		if(Scene::existsWith($this->name, $this->story_id)){
 			$errors[] = 'Nimi tässä tarinassa on jo käytössä.';
 		}*/

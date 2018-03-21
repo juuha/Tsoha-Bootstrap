@@ -108,7 +108,7 @@ class Story extends BaseModel{
 		$errors = array();
 		if(Story::validateNotEmpty($this->name)){
 			$errors[] = 'Tarinan nimi ei saa olla tyhjä';
-		}/* Doesn't work when editing story and not changing the name.
+		}/* Ei toimi, jos muokkauksessa ei muokata nimeä.
 		if(Story::existsWith($this->name)){
 			$errors[] = 'Tarinan nimi on jo käytössä.';
 		}*/

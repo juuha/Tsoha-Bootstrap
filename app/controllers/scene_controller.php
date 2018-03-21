@@ -5,10 +5,10 @@ class SceneController extends BaseController{
 	public static function view($id){
 		$scene = Scene::find($id);
 		$story = Story::find($scene->story_id);
-		$links = SceneLink::findChildrenOf($scene->id);
 		$scenes = Scene::allIn($story->id);
+		$child_links = SceneLink::findScenesAndLinksOf($scene->id);
 
-		View::make('scene/view.html', array('scene' =>$scene,'story' => $story, 'links' => $links, 'scenes' => $scenes));
+		View::make('scene/view.html', array('scene' =>$scene,'story' => $story, 'scenes' => $scenes, 'child_links' => $child_links));
 	}
 
 	public static function new($id){
@@ -22,11 +22,11 @@ class SceneController extends BaseController{
 
 	public static function read($story_id){
 		$scene = Scene::firstSceneIn($story_id);
-		$story = Story::find($scene->story_id);
-		$links = SceneLink::findChildrenOf($scene->id);
+		$story = Story::find($story_id);
 		$scenes = Scene::allIn($story_id);
+		$child_links = SceneLink::findScenesAndLinksOf($scene->id);
 
-		View::make('scene/view.html', array('scene' => $scene,"story" => $story, 'links' => $links, 'scenes' => $scenes));
+		View::make('scene/view.html', array('scene' => $scene,"story" => $story, 'scenes' => $scenes, 'child_links' => $child_links));
 	}
 
 	public static function list($story_id){
@@ -139,12 +139,11 @@ class SceneController extends BaseController{
 
 		$attributes = array(
 			'id' => $id,
+			'story_id' => Scene::find($id)->story_id,
 			'name' => $params['name'],
 			'situation' => $params['situation'],
 			'question' => $params['question']
 			);
-
-		
 
 		$scene = new Scene($attributes);
 		$errors = $scene->errors();
@@ -167,5 +166,16 @@ class SceneController extends BaseController{
 		$scene->delete();
 
 		Redirect::to('/story/' . $story_id . '/scenes', array('message' => 'Kohtaus poistettu onnistuneesti.'));
+	}
+
+	public static function deleteLink($id){
+		$params = $_POST;
+
+		$scene_link = SceneLink::find($params['scene_link_id']);
+		if ($scene_link){
+			$scene_link->delete();
+
+			Redirect::to('/scene/' . $id, array('message' => 'Yhteys lapseen poistettu onnistuneesti.'));
+		} 
 	}
 }

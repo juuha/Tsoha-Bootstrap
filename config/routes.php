@@ -46,6 +46,10 @@
     SceneController::update($id);
   });
 
+  $routes->post('/scene/:id/delete/child', function($id){
+    SceneController::deleteLink($id);
+  });
+
 
   //StoryController routet
 

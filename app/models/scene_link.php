@@ -63,4 +63,28 @@ class SceneLink extends BaseModel{
 		$query = DB::connection()->prepare('DELETE FROM SceneLink WHERE id = :id');
 		$query->execute(array('id' => $this->id));
 	}
+
+	public static function findScenesAndLinksOf($parent_scene_id){
+		$query = DB::connection()->prepare('SELECT *, SceneLink.id as scene_link_id FROM SceneLink INNER JOIN Scene ON SceneLink.child_scene_id = Scene.id AND SceneLink.parent_scene_id = :parent_scene_id');
+		$query->execute(array('parent_scene_id' => $parent_scene_id));
+		return $query->fetchAll();
+	}
+
+	public static function find($id){
+		$query = DB::connection()->prepare('SELECT * FROM SceneLink WHERE id = :id');
+		$query->execute(array('id' => $id));
+		$row = $query->fetch();
+
+		if($row){
+			$scene_link = new SceneLink(array(
+				'id' => $row['id'],
+				'option_name' => $row['option_name'],
+				'parent_scene_id' => $row['parent_scene_id'],
+				'child_scene_id' => $row['child_scene_id']
+				));
+			return $scene_link;
+		} else {
+			return null;
+		}
+	}
 }

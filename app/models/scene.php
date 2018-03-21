@@ -77,9 +77,7 @@ class Scene extends BaseModel{
 
 		if ($row){
 			return true;
-		} else {
-			return false;
-		}
+		} else return false;
 	}
 
 	public function save(){
@@ -94,9 +92,10 @@ class Scene extends BaseModel{
 		if(Scene::validateNotEmpty($this->name)){
 			$errors[] = 'Nimi ei saa olla tyhjä.';
 		}
+		/* Doesn't work with editing scene, when name doesn't change
 		if(Scene::existsWith($this->name, $this->story_id)){
 			$errors[] = 'Nimi tässä tarinassa on jo käytössä.';
-		}
+		}*/
 		return $errors;
 	}
 

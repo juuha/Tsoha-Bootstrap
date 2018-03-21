@@ -34,7 +34,7 @@
 <!-- Vaihtehdot tähän listana -->
 
 <ol>
-	{% for link in links %}
+	{% for link in child_links %}
 	<li><a href="{{base_path}}/scene/{{link.child_scene_id}}">{{link.option_name}}</a></li>
 	{% endfor %}
 </ol>
@@ -46,14 +46,30 @@
 <hr>
 <p>
 	<div style="display: inline-block;">
-		<button class="btn btn-success" onclick="childForm()">Lisää uusi lapsi</button>
+		<button class="btn btn-success" onclick="childForm()">Lisää lapsi</button>
 		<a href="{{base_path}}/scene/{{scene.id}}/new" class="btn btn-success">Luo uusi lapsi</a>
+		<button class="btn btn-warning" onclick="childDeleteForm()">Poista lapsi</button>
 		<a href="{{base_path}}/scene/{{scene.id}}/edit" class="btn btn-default">Muokkaa</a>
 		{{forms.delete_button("#{base_path}/scene/#{scene.id}/delete")}}
 	</div>
 </p>
 
 <hr><hr> <!-- Other disappears for some reason -->
+
+<form id="deleteChild" style="display: none;" method="post" action="{{base_path}}/scene/{{scene.id}}/delete/child">
+	<div class="form-group">
+		<label>Lapsen nimi</label>
+		<select name="scene_link_id" size="5" class="form-control">
+			{% for child in child_links %}
+			<option value="{{child.scene_link_id}}">{{child.name}}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="form-group">
+		<input type="hidden" value="{{scene.id}}" name="parent_scene_id"></input>
+		<button type="submit" class="btn btn-danger">Poista yhteys lapseen</button>
+	</div>
+</form>
 
 <form id="newChild" style="display: none;" method="post" action="{{base_path}}/scene/existing">
 	<div class="form-group">
@@ -78,7 +94,20 @@
 
 	function childForm(){
 		var x = document.getElementById("newChild");
+		var y = document.getElementById("deleteChild");
+		y.style.display = "none";
 		if (x.style.display === "none") {
+			x.style.display = "block";
+		} else {
+			x.style.display = "none";
+		}
+	}
+
+	function childDeleteForm(){
+		var x = document.getElementById("deleteChild");
+		var y = document.getElementById("newChild");
+		y.style.display = "none";
+		if (x.style.display === "none"){
 			x.style.display = "block";
 		} else {
 			x.style.display = "none";

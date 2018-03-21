@@ -9,13 +9,21 @@ class StoryController extends BaseController{
 
 	public static function view($id){
 		$story = Story::find($id);
+		$author = Author::find($story->author_id);
 		$has_first_scene = Story::hasFirstScene($id);
 
-		View::make('story/view.html', array('story' => $story, 'has_first_scene' => $has_first_scene));
+		View::make('story/view.html', array('story' => $story, 'has_first_scene' => $has_first_scene, 'author' => $author));
 	}
 
 	public static function new(){
 		View::make('story/new.html');
+	}
+
+	public static function listFrom($author_id){
+		$stories = Story::allFrom($author_id);
+		$author = Author::find($author_id);
+
+		View::make('story/list.html', array('stories' => $stories, 'author' => $author));
 	}
 
 	public static function store(){
@@ -23,7 +31,7 @@ class StoryController extends BaseController{
 
 		$attributes = array(
 			'name' => $params['name'],
-			'author_id' => 1, //TODO
+			'author_id' => $params['author_id'],
 			'genre' => $params['genre'],
 			'synopsis' => $params['synopsis']
 			);

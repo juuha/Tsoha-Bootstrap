@@ -69,6 +69,10 @@
     StoryController::edit($id);
   });
 
+  $routes->get('/author/:author_id', function($author_id){
+    StoryController::listFrom($author_id);
+  });
+
   $routes->post('/story', function(){
     StoryController::store();
   });

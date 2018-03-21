@@ -96,8 +96,16 @@
     AuthorController::login();
   });
 
+  $routes->get('/login/new', function(){
+    AuthorController::new();
+  });
+
   $routes->post('/login', function(){
     AuthorController::handle_login();
+  });
+
+  $routes->post('/login/new', function(){
+    AuthorController::save();
   });
 
   $routes->post('/logout', function(){

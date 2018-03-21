@@ -5,7 +5,7 @@ class Author extends BaseModel{
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
-
+		$this->validators = array('validateName', 'validatePassword');
 	}
 
 	public static function authenticate($name, $password){
@@ -34,5 +34,42 @@ class Author extends BaseModel{
 				));
 			return $author;
 		} else return null;
+	}
+
+	public function save(){
+		$query = DB::connection()->prepare('INSERT INTO Author (name, password) VALUES (:name, :password) RETURNING id');
+		$query->execute(array('name' => $this->name, 'password' => $this->password));
+	}
+
+	public static function existsWith($name){
+		$query = DB::connection()->prepare('SELECT * FROM Author WHERE UPPER(name) = UPPER(:name) LIMIT 1');
+		$query->execute(array('name' => $name));
+		$row = $query->fetch();
+		if($row){
+			return true;
+		} else return false;
+	}
+
+	public function validateName(){
+		$errors = array();
+		if(Author::validateNotEmpty($this->name)){
+			$errors[] = 'Nimi ei voi olla tyhjä.';
+		}
+		if(Author::existsWith($this->name)){
+			$errors[] = 'Nimi on jo käytössä.';
+		}
+
+		return $errors;
+	}
+
+	public function validatePassword(){
+		$errors = array();
+		if(Author::validateNotEmpty($this->password)){
+			$errors[] = 'Salasana ei voi olla tyhjä.';
+		}
+		if(Author::validateStringLength($this->password, 5)){
+			$errors[] = 'Salasana ei saa lyhyempi kuin 5 merkkiä.';
+		}
+		return $errors;
 	}
 }

@@ -7,9 +7,31 @@ class AuthorController extends BaseController{
 	}
 
 	public static function logout(){
-      $_SESSION['author'] = null;
-      Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
-    }
+		$_SESSION['author'] = null;
+		Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
+	}
+
+	public static function new(){
+		View::make('author/new.html');
+	}
+
+	public static function save(){
+		$params = $_POST;
+
+		$author = new Author(array(
+			'name' => $params['name'],
+			'password' => $params['password']
+			));
+
+		$errors = $author->errors();
+
+		if(count($errors) == 0){
+			$author->save();
+			Redirect::to('/login', array('message' => 'käyttäjätunnus luotu onnistuneesti.', 'name' => $params['name']));
+		} else {
+			View::make('author/new.html', array('name' => $params['name'], 'errors' => $errors));
+		}
+	}
 
 	public static function handle_login(){
 		$params = $_POST;

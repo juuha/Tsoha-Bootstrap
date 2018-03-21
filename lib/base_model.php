@@ -34,4 +34,11 @@ class BaseModel{
     } else return false;
   }
 
+  public function validateStringLength($string, $length){
+    $errors = array();
+    if(strlen($string) < $length){
+      return true;
+    } else return false;
+  }
+
 }

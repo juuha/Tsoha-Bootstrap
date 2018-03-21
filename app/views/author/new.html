@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Luo käyttäjätunnus</h1>
+
+  {% if errors %}
+  <div class="alert alert-danger">
+  {% for error in errors %}
+    {{error}}
+  {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Kaikki lomakkeen elementit form-tagin sisään -->
+  <form method="post" action="{{base_path}}/login/new">
+    <!-- Tekstikenttä käyttäjätunnukselle -->
+    <div class="form-group">
+      <label>Käyttäjätunnus</label>
+      <input class="form-control" type="text" name="name" value="{{name}}">
+    </div>
+
+    <!-- Salasanakenttä salasanalle -->
+    <div class="form-group">
+      <label>Salasana</label>
+      <input class="form-control" type="password" name="password">
+    </div>
+    <div class="form-group">
+      <label>Kirjoita salasan uudelleen</label>
+      <input class="form-control" type="password" name="password_check">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Luo</button>
+  </form>
+{% endblock %}

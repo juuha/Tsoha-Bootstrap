@@ -4,7 +4,7 @@
 
 <h1>{{story.name}}</h1>
 <!-- Painikkeet tähän -->
-{% if user_logged_in %}
+{% if user_logged_in.id == author.id %}
 <p>
 	{{forms.delete_button("#{base_path}/story/#{story.id}/delete")}}
 	<a href="{{base_path}}/story/{{story.id}}/edit" class="btn btn-default">Muokkaa</a>

@@ -43,7 +43,7 @@
 <p>
 	<a href="{{base_path}}/story/{{story.id}}" class="btn btn-default">Palaa tarinan kuvaukseen</a>
 </p>
-	{% if user_logged_in %}
+	{% if user_logged_in.id == story.author_id %}
 <hr>
 <p>
 	<div style="display: inline-block;">

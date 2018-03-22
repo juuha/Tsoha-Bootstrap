@@ -39,6 +39,28 @@ class Story extends BaseModel{
 		return $stories;
 	}
 
+	public static function allFrom($options){
+		$query_string = 'SELECT * FROM Story WHERE author_id = :author_id';
+		if(isset($options['search'])){
+			$query_string .= ' AND UPPER(Story.name) LIKE UPPER(:like)';
+			$vars['like'] = '%' . $options['search'] . '%';
+			$vars['author_id'] = $options['author_id'];
+			$query = DB::connection()->prepare($query_string);
+			$query->execute($vars);
+		}	else {	
+			$query = DB::connection()->prepare($query_string);
+			$query->execute(array('author_id' => $options['author_id']));
+		}
+		$rows = $query->fetchAll();
+		$stories = Array();
+
+		foreach ($rows as $row) {
+			$stories[] = new Story($row);
+		}
+
+		return $stories;
+	}
+
 	public static function find($id){
 		$query = DB::connection()->prepare('SELECT * FROM Story WHERE id = :id LIMIT 1');
 		$query->execute(array('id' => $id));
@@ -50,19 +72,6 @@ class Story extends BaseModel{
 		}
 
 		return null;
-	}
-
-	public static function allFrom($author_id){
-		$query = DB::connection()->prepare('SELECT * FROM Story WHERE author_id = :author_id');
-		$query->execute(array('author_id' => $author_id));
-		$rows = $query->fetchAll();
-		$stories = Array();
-
-		foreach ($rows as $row) {
-			$stories[] = new Story($row);
-		}
-
-		return $stories;
 	}
 
 	public static function hasFirstScene($story_id){

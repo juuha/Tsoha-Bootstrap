@@ -26,7 +26,13 @@ class StoryController extends BaseController{
 	}
 
 	public static function listFrom($author_id){
-		$stories = Story::allFrom($author_id);
+		$params = $_GET;
+		$options = array('author_id' => $author_id);
+
+		if(isset($params['search'])){
+			$options['search'] = $params['search'];
+		}
+		$stories = Story::allFrom($options);
 		$author = Author::find($author_id);
 
 		View::make('story/list.html', array('stories' => $stories, 'author' => $author));

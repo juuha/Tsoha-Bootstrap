@@ -60,10 +60,10 @@
 <form id="deleteChild" style="display: none;" method="post" action="{{base_path}}/scene/{{scene.id}}/delete/child">
 	<hr><hr>
 	<div class="form-group">
-		<label>Lapsen nimi</label>
+		<label>Lapsen ja valinnan nimi</label>
 		<select name="scene_link_id" size="5" class="form-control">
 			{% for child in child_links %}
-			<option value="{{child.scene_link_id}}">{{child.name}}</option>
+			<option value="{{child.scene_link_id}}">{{child.name}} --> {{child.option_name}}</option>
 			{% endfor %}
 		</select>
 	</div>

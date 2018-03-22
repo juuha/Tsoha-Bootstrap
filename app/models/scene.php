@@ -15,16 +15,8 @@ class Scene extends BaseModel{
 		$scenes = Array();
 
 		foreach ($rows as $row) {
-			$scenes[] = new Scene(array(
-				'id' => $row['id'],
-				'name' => $row['name'],
-				'story_id' => $row['story_id'],
-				'situation' => $row['situation'],
-				'question' => $row['question'],
-				'first_scene' => $row['first_scene']
-				));
+			$scenes[] = new Scene($row);
 		}
-
 		return $scenes;
 	}
 
@@ -34,18 +26,9 @@ class Scene extends BaseModel{
 		$row = $query->fetch();
 
 		if ($row){
-			$scene = new Scene(array(
-				'id' => $row['id'],
-				'name' => $row['name'],
-				'story_id' => $row['story_id'],
-				'situation' => $row['situation'],
-				'question' => $row['question'],
-				'first_scene' => $row['first_scene']
-				));
-
+			$scene = new Scene($row);
 			return $scene;
 		}
-
 		return null;
 	}
 
@@ -55,18 +38,9 @@ class Scene extends BaseModel{
 		$row = $query->fetch();
 
 		if ($row){
-			$scene = new Scene(array(
-				'id' => $row['id'],
-				'name' => $row['name'],
-				'story_id' => $row['story_id'],
-				'situation' => $row['situation'],
-				'question' => $row['question'],
-				'first_scene' => $row['first_scene']
-				));
-
+			$scene = new Scene($row);
 			return $scene;
 		}
-
 		return null;
 	}
 
@@ -98,7 +72,6 @@ class Scene extends BaseModel{
 		if(Scene::validateStringLengthMax($this->name, 64)){
 			$errors[] = 'Kohtauksen nimi ei saa olla pitempi kuin 64 merkkiä.';
 		}
-
 		return $errors;
 	}
 
@@ -134,5 +107,4 @@ class Scene extends BaseModel{
 		$query = DB::connection()->prepare('UPDATE Scene Set name = :name, situation = :situation, question = :question WHERE id = :id');
 		$query->execute(array('name' => $this->name, 'situation' => $this->situation, 'question' => $this->question, 'id' => $this->id));
 	}
-
 }

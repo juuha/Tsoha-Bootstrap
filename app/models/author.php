@@ -58,6 +58,9 @@ class Author extends BaseModel{
 		if(Author::existsWith($this->name)){
 			$errors[] = 'Nimi on jo käytössä.';
 		}
+		if(Author::validateStringLengthMax($this->name, 50)){
+			$errors[] = 'Nimi ei voi olla yli 50 merkkiä pitkä.'
+		}
 
 		return $errors;
 	}
@@ -67,9 +70,13 @@ class Author extends BaseModel{
 		if(Author::validateNotEmpty($this->password)){
 			$errors[] = 'Salasana ei voi olla tyhjä.';
 		}
-		if(Author::validateStringLength($this->password, 5)){
+		if(Author::validateStringLengthMin($this->password, 5)){
 			$errors[] = 'Salasana ei saa lyhyempi kuin 5 merkkiä.';
 		}
+		if(Author::validateStringLengthMax($this->password, 50)){
+			$errors[] = 'Salasana ei voi olla yli 50 merkkiä pitkä.'
+		}
+
 		return $errors;
 	}
 }

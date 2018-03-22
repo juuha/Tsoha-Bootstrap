@@ -5,6 +5,12 @@
 	<h1>Tervetuloa Xroadsiin!</h1>
 </div>
 
+{% if message %}
+	<div class="alert alert-danger">
+		{{message}}
+	</div>
+{% endif %}
+
 <h3>Xroads on monipolkuisten tarinoiden lukemiseen ja kirjoittamiseen tarkoitettu sivusto.</h3>
 
 <p>Hyödyllisiä linkkejä:</p>

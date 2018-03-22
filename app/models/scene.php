@@ -70,9 +70,9 @@ class Scene extends BaseModel{
 		return null;
 	}
 
-	public static function existsWith($name, $story_id){
-		$query = DB::connection()->prepare('SELECT * FROM Scene Where story_id = :story_id AND name = :name');
-		$query->execute(array('story_id' => $story_id, 'name' => $name));
+	public static function existsWith($name, $story_id, $id){
+		$query = DB::connection()->prepare('SELECT * FROM Scene Where story_id = :story_id AND name = :name AND NOT id = :id');
+		$query->execute(array('story_id' => $story_id, 'name' => $name, 'id' => $id));
 		$row = $query->fetch();
 
 		if ($row){
@@ -90,19 +90,25 @@ class Scene extends BaseModel{
 	public function validateName(){
 		$errors = array();
 		if(Scene::validateNotEmpty($this->name)){
-			$errors[] = 'Nimi ei saa olla tyhjä.';
+			$errors[] = 'Kohtauksen nimi ei saa olla tyhjä.';
 		}
-		/* Ei toimi jos muokkauksessa ei muokata nimeä.
-		if(Scene::existsWith($this->name, $this->story_id)){
-			$errors[] = 'Nimi tässä tarinassa on jo käytössä.';
-		}*/
+		if(Scene::existsWith($this->name, $this->story_id, $this->id)){
+			$errors[] = 'Kohtauksen nimi tässä tarinassa on jo käytössä.';
+		}
+		if(Scene::validateStringhLengthMax($this->question, 64)){
+			$errors[] = 'Kohtauksen nimi ei saa olla pitempi kuin 64 merkkiä.'
+		}
+
 		return $errors;
 	}
 
 	public function validateSituation(){
 		$errors = array();
 		if(Scene::validateNotEmpty($this->situation)){
-			$errors[] = 'Tilanne ei saa olla tyhjä.';
+			$errors[] = 'Kohtausen Tilanne ei saa olla tyhjä.';
+		}
+		if(Scene::validateStringhLengthMax($this->situation, 1024)){
+			$errors[] = 'Kohtauksen tilanne ei saa olla pitempi kuin 1024 merkkiä.'
 		}
 		return $errors;
 	}
@@ -112,6 +118,9 @@ class Scene extends BaseModel{
 		$errors = array();
 		if(Scene::validateNotEmpty($this->question)){
 			$errors[] = 'Kysymys ei saa olla tyhjä.';
+		}
+		if(Scene::validateStringhLengthMax($this->question, 128)){
+			$errors[] = 'Kohtauksen kysymys ei saa olla pitempi kuin 128 merkkiä.'
 		}
 		return $errors;
 	}

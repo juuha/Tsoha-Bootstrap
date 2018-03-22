@@ -6,7 +6,7 @@ CREATE TABLE Author(
 
 CREATE TABLE Story(
 	id SERIAL PRIMARY KEY,
-	name varchar(50) NOT NULL,
+	name varchar(64) NOT NULL,
 	author_id INTEGER REFERENCES Author(id),
 	genre varchar(50),
 	synopsis varchar(1000),
@@ -15,10 +15,10 @@ CREATE TABLE Story(
 
 CREATE TABLE Scene(
 	id SERIAL PRIMARY KEY,
-	name varchar(50) NOT NULL,
+	name varchar(64) NOT NULL,
 	story_id INTEGER REFERENCES Story(id),
-	situation varchar(1000) NOT NULL, --for actual story
-	question varchar(250) NOT NULL, --question for choice
+	situation varchar(1024) NOT NULL, --for actual story
+	question varchar(128) NOT NULL, --question for choice
 	first_scene INTEGER DEFAULT 0
 );
 

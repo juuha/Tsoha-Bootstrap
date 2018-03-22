@@ -34,9 +34,16 @@ class BaseModel{
     } else return false;
   }
 
-  public function validateStringLength($string, $length){
+  public function validateStringLengthMin($string, $length){
     $errors = array();
     if(strlen($string) < $length){
+      return true;
+    } else return false;
+  }
+
+  public function validateStringLengthMax($string, $length){
+    $errors = array();
+    if(strlen($string) > $length){
       return true;
     } else return false;
   }

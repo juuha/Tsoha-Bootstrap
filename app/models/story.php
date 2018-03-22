@@ -77,8 +77,8 @@ class Story extends BaseModel{
 		} else return false;
 	}
 
-	public static function existsWith($name){
-		$query = DB::connection()->prepare('SELECT * FROM Story WHERE name = :name');
+	public static function existsWith($name, $id){
+		$query = DB::connection()->prepare('SELECT * FROM Story WHERE name = :name AND NOT id = :id');
 		$query->execute(array('name' => $name, 'id' => $id));
 		$row = $query->fetch();
 
@@ -114,10 +114,14 @@ class Story extends BaseModel{
 		$errors = array();
 		if(Story::validateNotEmpty($this->name)){
 			$errors[] = 'Tarinan nimi ei saa olla tyhjä';
-		}/* Ei toimi, jos muokkauksessa ei muokata nimeä.
-		if(Story::existsWith($this->name)){
+		}
+		if(Story::existsWith($this->name, $this->id)){
 			$errors[] = 'Tarinan nimi on jo käytössä.';
-		}*/
+		}
+		if(Story::validateStringLengthMax($this->name, 64)){
+			$errors[] = 'Tarinan nimi ei saa olla pitempi kuin 64 merkkiä.';
+		}
+		
 		return $errors;
 	}
 
@@ -126,6 +130,10 @@ class Story extends BaseModel{
 		if(Story::validateNotEmpty($this->genre)){
 			$errors[] = 'Tarinalla on oltava genre.';
 		}
+		if(Story::validateStringLengthMax($this->genre, 32)){
+			$errors[] = 'Tarinan genre ei saa olla pitempi kuin 32 merkkiä.';
+		}
+
 		return $errors;
 	}
 
@@ -134,6 +142,10 @@ class Story extends BaseModel{
 		if(Story::validateNotEmpty($this->synopsis)){
 			$errors[] = 'Tarinan kuvaus ei voi olla tyhjä';
 		}
+		if(Story::validateStringLengthMax($this->synopsis, 1024)){
+			$errors[] = 'Tarinan kuvaus ei saa olla pitempi kuin 1024 merkkiä.';
+		}
+
 		return $errors;
 	}
 

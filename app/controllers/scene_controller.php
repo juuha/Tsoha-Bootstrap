@@ -166,7 +166,8 @@ class SceneController extends BaseController{
 	}
 
 	public static function update($id){
-		$story = Story::find(Scene::find($id)->story_id);
+		$old_scene = Scene::find($id);
+		$story = Story::find($old_scene->story_id);
 
 		$params = $_POST;
 
@@ -190,7 +191,7 @@ class SceneController extends BaseController{
 			$story->edited();
 			Redirect::to('/scene/' . $scene->id, array('message' => 'Kohtaus päivitetty onnistuneesti.'));
 		} else {
-			View::make('scene/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'scene' => $scene));
+			View::make('scene/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'scene' => $scene, 'old_scene' => $old_scene));
 		}
 	}
 

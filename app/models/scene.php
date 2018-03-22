@@ -95,8 +95,8 @@ class Scene extends BaseModel{
 		if(Scene::existsWith($this->name, $this->story_id, $this->id)){
 			$errors[] = 'Kohtauksen nimi tässä tarinassa on jo käytössä.';
 		}
-		if(Scene::validateStringhLengthMax($this->question, 64)){
-			$errors[] = 'Kohtauksen nimi ei saa olla pitempi kuin 64 merkkiä.'
+		if(Scene::validateStringLengthMax($this->name, 64)){
+			$errors[] = 'Kohtauksen nimi ei saa olla pitempi kuin 64 merkkiä.';
 		}
 
 		return $errors;
@@ -107,8 +107,8 @@ class Scene extends BaseModel{
 		if(Scene::validateNotEmpty($this->situation)){
 			$errors[] = 'Kohtausen Tilanne ei saa olla tyhjä.';
 		}
-		if(Scene::validateStringhLengthMax($this->situation, 1024)){
-			$errors[] = 'Kohtauksen tilanne ei saa olla pitempi kuin 1024 merkkiä.'
+		if(Scene::validateStringLengthMax($this->situation, 1024)){
+			$errors[] = 'Kohtauksen tilanne ei saa olla pitempi kuin 1024 merkkiä.';
 		}
 		return $errors;
 	}
@@ -119,8 +119,8 @@ class Scene extends BaseModel{
 		if(Scene::validateNotEmpty($this->question)){
 			$errors[] = 'Kysymys ei saa olla tyhjä.';
 		}
-		if(Scene::validateStringhLengthMax($this->question, 128)){
-			$errors[] = 'Kohtauksen kysymys ei saa olla pitempi kuin 128 merkkiä.'
+		if(Scene::validateStringLengthMax($this->question, 128)){
+			$errors[] = 'Kohtauksen kysymys ei saa olla pitempi kuin 128 merkkiä.';
 		}
 		return $errors;
 	}

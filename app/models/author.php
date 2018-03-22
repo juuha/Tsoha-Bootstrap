@@ -59,7 +59,7 @@ class Author extends BaseModel{
 			$errors[] = 'Nimi on jo käytössä.';
 		}
 		if(Author::validateStringLengthMax($this->name, 50)){
-			$errors[] = 'Nimi ei voi olla yli 50 merkkiä pitkä.'
+			$errors[] = 'Nimi ei voi olla yli 50 merkkiä pitkä.';
 		}
 
 		return $errors;
@@ -74,7 +74,7 @@ class Author extends BaseModel{
 			$errors[] = 'Salasana ei saa lyhyempi kuin 5 merkkiä.';
 		}
 		if(Author::validateStringLengthMax($this->password, 50)){
-			$errors[] = 'Salasana ei voi olla yli 50 merkkiä pitkä.'
+			$errors[] = 'Salasana ei voi olla yli 50 merkkiä pitkä.';
 		}
 
 		return $errors;

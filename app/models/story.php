@@ -8,9 +8,19 @@ class Story extends BaseModel{
 		$this->validators = array('validateName', 'validateGenre', 'validateSynopsis');
 	}
 
-	public static function all(){
-		$query = DB::connection()->prepare('SELECT Story.name as name, Author.name as author_name, Story.genre, Story.synopsis, Story.last_edited, Author.id as author_id, Story.id FROM Story LEFT JOIN Author ON Story.author_id = Author.id');
-		$query->execute();
+	public static function all($options){
+		$query_string = 'SELECT Story.name as name, Author.name as author_name, Story.genre, Story.synopsis, Story.last_edited, Author.id as author_id, Story.id FROM Story LEFT JOIN Author ON Story.author_id = Author.id';
+		if(isset($options['search'])){
+			$query_string .= ' WHERE UPPER(Story.name) LIKE UPPER(:like)';
+			$vars['like'] = '%' . $options['search'] . '%';
+			$query = DB::connection()->prepare($query_string);
+			$query->execute($vars);
+		} else {
+			$query = DB::connection()->prepare($query_string);
+			$query->execute();
+		}
+
+		
 		$rows = $query->fetchAll();
 		$stories = array();
 
@@ -35,14 +45,7 @@ class Story extends BaseModel{
 		$row = $query->fetch();
 
 		if ($row){
-			$story = new Story(array(
-				'id' => $row['id'],
-				'name' => $row['name'],
-				'author_id' => $row['author_id'],
-				'genre' => $row['genre'],
-				'synopsis' => $row['synopsis'],
-				'last_edited' => $row['last_edited']
-				));
+			$story = new Story($row);
 			return $story;
 		}
 
@@ -56,13 +59,7 @@ class Story extends BaseModel{
 		$stories = Array();
 
 		foreach ($rows as $row) {
-			$stories[] = new Story(array(
-				'id' => $row['id'],
-				'name' => $row['name'],
-				'genre' => $row['genre'],
-				'synopsis' => $row['genre'],
-				'last_edited' => $row['last_edited']
-				));
+			$stories[] = new Story($row);
 		}
 
 		return $stories;

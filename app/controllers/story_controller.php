@@ -2,7 +2,13 @@
 
 class StoryController extends BaseController{
 	public static function list(){
-		$stories = Story::all();
+		$params = $_GET;
+		$options = array();
+		if(isset($params['search'])){
+			$options['search'] = $params['search'];
+		}
+
+		$stories = Story::all($options);
 
 		View::make('story/list.html', array('stories' => $stories));
 	}
@@ -30,7 +36,7 @@ class StoryController extends BaseController{
 		$params = $_POST;
 
 		if (!StoryController::user_is_owner($params['author_id'])){
-			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+			Redirect::to('/', array('error' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
 		}
 
 		$attributes = array(
@@ -56,7 +62,7 @@ class StoryController extends BaseController{
 		$story = Story::find($id);
 
 		if (!StoryController::user_is_owner($story->author_id)){
-			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+			Redirect::to('/', array('error' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
 		}
 
 		View::make('story/edit.html', array('story' => $story));
@@ -66,7 +72,7 @@ class StoryController extends BaseController{
 		$params = $_POST;
 
 		if (!StoryController::user_is_owner($params['author_id'])){
-			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+			Redirect::to('/', array('error' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
 		}
 
 		$attributes = array(
@@ -93,7 +99,7 @@ class StoryController extends BaseController{
 		$story = Story::find($id);
 
 		if (!StoryController::user_is_owner($story->author_id)){
-			Redirect::to('/', array('message' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
+			Redirect::to('/', array('error' => 'Et voi muuttaa toisen käyttäjän tarinaa.'));
 		}
 
 		$scenes = Scene::allIn($story->id);

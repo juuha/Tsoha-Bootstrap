@@ -44,7 +44,7 @@ INSERT INTO Scene (name, story_id, question, situation, first_scene) VALUES ('St
 INSERT INTO Scene (name, story_id, question, situation) VALUES ('The second part of the
 	story', 2, 'Which way should we go?', 'This is what the 2nd scene of this story looks like, 
 	neat huh? This is the first fork in the story, quite a scary choice we have. Seems like 
-	we can visit the 4th part if we go to the 3rd part. Or we could skip the 3rd part entirely.');
+	we can visit the 4th part after, if we first go to the 3rd part. Or we could skip the 3rd part entirely.');
 INSERT INTO Scene (name, story_id, situation, question) VALUES ('3rd part of the story', 2 ,'Cool, 
 	you made the choice of not skipping this bit of the story. Unfortunately for you, there is no
 	cool prize for not skipping this scene.', 'Click Continue to progress to scene 4.');
@@ -53,17 +53,17 @@ INSERT INTO Scene (name, story_id, situation, question) VALUES ('4th part of the
 	should be done about now.', 'Click Finish loading to progress to part 4.');
 INSERT INTO Scene (name, story_id, situation, question) VALUES ('4th part of the story', 2, 
 	'Cool, you have arrived at the 4th part of the story, which is the first merge location in the 
-	story. The next attraction you will see is the loop, WooOOOooOOO. Do not be afraid, 
+	story. The next attraction you will see is the loop, WooOOOooOOO. Don''t be afraid though, 
 	we have built an escape hatch in the loop, so you will not be stuck.', 'Go into the loop.');
 INSERT INTO Scene (name, story_id, situation, question) VALUES ('The loop, part 1', 2, 
-	'So this is a loop, imagined it would be scarier. It does not look like we have much else to 
+	'So this is a loop, imagined it would be scarier. It doesn''t look like we have much else to 
 	do except continue forward in the loop. Or is it even forward if it''s a loop.', 'Continue 
 	looping in the loop by clicking Next.');
 INSERT INTO Scene (name, story_id, situation, question) VALUES ('The loop, part 2', 2, 
 	'This is the 2nd part of the loop. Seems like we can return to the first part of the loop or we 
-	can use the not so secret escape hatch "Totally not an escape hatch"', 'Continue or escape?');
-INSERT INTO Scene (name, story_id, situation, question) VALUES ('Outside the escape hatch', 2, 'Seems 
-	like we got out of the loop just fine. Seems
+	can use the not-so-secret escape hatch, on which reads "Totally not an escape hatch".', 'Continue or escape?');
+INSERT INTO Scene (name, story_id, situation, question) VALUES ('Seems like we got out of the loop just fine.', 
+	2, 'Seems	like we got out of the loop just fine. Seems
 	like we got out of the loop just fine. Seems
 	like we got out of the loop just fine. Seems
 	like we got out of the loop just fine. Seems
@@ -73,7 +73,7 @@ INSERT INTO Scene (name, story_id, situation, question) VALUES ('Outside the esc
 	like we got out of the loop just fine. Seems
 	like we got out of the loop just fine. Seems 
 	like we got out of the loop just fine...', 'Seems like we got out of the loop just fine.');
-INSERT INTO Scene (name, story_id, situation, question) VALUES ('Just kiddin''''', 2, 'I was just
+INSERT INTO Scene (name, story_id, situation, question) VALUES ('Just kiddin'' ', 2, 'I was just
 	joking, don''t worry. We''re getting close to the end of the story. You can either go back to the 
 	start or go forward to the dead-end, your choice.', 'So, how about it?');
 INSERT INTO Scene (name, story_id, situation, question) VALUES ('The end?', 2, 'This is the end of
@@ -106,3 +106,4 @@ INSERT INTO SceneLink (option_name, parent_scene_id, child_scene_id) VALUES ('Es
 INSERT INTO SceneLink (option_name, parent_scene_id, child_scene_id) VALUES ('Seems like we got out of the loop just fine.', 12, 13);
 INSERT INTO SceneLink (option_name, parent_scene_id, child_scene_id) VALUES ('Start of the story', 13, 5);
 INSERT INTO SceneLink (option_name, parent_scene_id, child_scene_id) VALUES ('Dead-end', 13, 14);
+INSERT INTO SceneLink (option_name, parent_scene_id, child_scene_id) VALUES ('START', 15, 5);

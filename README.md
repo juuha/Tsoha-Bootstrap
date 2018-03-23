@@ -3,7 +3,7 @@
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://ritakosk.users.cs.helsinki.fi/xroads/)
-* [Linkki dokumentaatiooni](https://github.com/juuha/Tsoha-Bootstrap)
+* [Linkki dokumentaatiooni](https://github.com/juuha/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
 
@@ -14,6 +14,6 @@ Xroads on sovellus, jonka tarkoitus on tehdä monivalinteisten tarinoiden kirjoi
 * Tarinoiden luonti, muokkaaminen ja poisto
 * Uusien kohtauksien luonti, muokkaus ja poisto
 * Vanhojen kohtauksien lisääminen uuteen kohtaan tarinaa
-* Käyttäjän rekisteröyityminen
+* Käyttäjän rekisteröityminen
 * Kirjautuminen
 * Muiden tarinoiden lukeminen

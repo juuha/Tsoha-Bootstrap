@@ -56,6 +56,9 @@ class SceneLink extends BaseModel{
 		if(SceneLink::validateNotEmpty($this->option_name)){
 			$errors[] = 'Valinnan nimi ei saa olla tyhjä.';
 		}
+		if(SceneLink::validateStringLengthMax($this->option_name, 256)){
+			$errors[] = 'Valinnan nimi ei saa olla yli 256 merkkiä pitkä.';
+		}
 		return $errors;
 	}
 

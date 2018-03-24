@@ -24,7 +24,7 @@ CREATE TABLE Scene(
 
 CREATE TABLE SceneLink(
 	id SERIAL PRIMARY KEY,
-	option_name varchar(50) NOT NULL, --for choosing next scene
+	option_name varchar(256) NOT NULL, --for choosing next scene
 	parent_scene_id INTEGER REFERENCES Scene(id),
 	child_scene_id INTEGER REFERENCES Scene(id)
 );

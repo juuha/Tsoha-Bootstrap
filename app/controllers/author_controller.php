@@ -25,6 +25,11 @@ class AuthorController extends BaseController{
 
 		$errors = $author->errors();
 
+		if ($params['password'] != $params['password_check']){
+			$errors[] = "Salasanat eivät täsmää.";
+		}
+
+
 		if(count($errors) == 0){
 			$author->save();
 			Redirect::to('/login', array('message' => 'käyttäjätunnus luotu onnistuneesti.', 'name' => $params['name']));

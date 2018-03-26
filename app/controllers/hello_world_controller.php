@@ -8,9 +8,10 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      $all = Story::all();
+      $options = array('author_id' => 1);
+      $stories = Story::allFrom($options);
       
-      Kint::dump($all);
+      Kint::dump($stories);
     }
 
     public static function login(){

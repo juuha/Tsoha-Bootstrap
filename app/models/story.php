@@ -40,7 +40,7 @@ class Story extends BaseModel{
 	}
 
 	public static function allFrom($options){
-		$query_string = 'SELECT * FROM Story WHERE author_id = :author_id';
+		$query_string = 'SELECT Story.name as name, Author.name as author_name, Story.genre, Story.synopsis, Story.last_edited, Author.id as author_id, Story.id FROM Story LEFT JOIN Author ON Story.author_id = Author.id WHERE author_id = :author_id';
 		if(isset($options['search'])){
 			$query_string .= ' AND UPPER(Story.name) LIKE UPPER(:like)';
 			$vars['like'] = '%' . $options['search'] . '%';
@@ -55,7 +55,15 @@ class Story extends BaseModel{
 		$stories = Array();
 
 		foreach ($rows as $row) {
-			$stories[] = new Story($row);
+			$stories[] = array(
+				'id' => $row['id'],
+				'name' => $row['name'],
+				'author_name' => $row['author_name'],
+				'author_id' => $row['author_id'],
+				'genre' => $row['genre'],
+				'synopsis' => $row['synopsis'],
+				'last_edited' => $row['last_edited']
+				);
 		}
 
 		return $stories;

@@ -7,7 +7,7 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-Xroads on sovellus, jonka tarkoitus on tehdä monivalinteisten tarinoiden kirjoittamisesta ja lukemisesta helppoa. Tarinan jokaisen kohtauksen jälkeen lukijalle annetaan lista vaihtoehtoja, jonka avulla lukija voi päättää mihin suuntaan tarina jatkuu. Tarinan kohtaukset voivat myöhemmin yhdistyä uudestaan yhdeksi poluksi, tai jopa kiertää takaisin tarinan aiempaan kohtaukseen. Tarina alkavaa aina yhdestä alkupisteestä, mutta se voi päättyä moneen eri päätepisteeseen, tai se voi olla jopa päättymätön.
+Xroads on sovellus, jonka tarkoitus on tehdä monivalinteisten tarinoiden kirjoittamisesta ja lukemisesta helppoa. Tarinan jokaisen kohtauksen jälkeen lukijalle annetaan lista vaihtoehtoja, jonka avulla lukija voi päättää mihin suuntaan tarina jatkuu. Tarinan kohtaukset voivat myöhemmin yhdistyä uudestaan yhdeksi poluksi, tai jopa kiertää takaisin tarinan aiempaan kohtaukseen. Tarina alkaa aina yhdestä alkupisteestä, mutta se voi päättyä moneen eri päätepisteeseen, tai se voi olla jopa päättymätön.
 
 ### Toimintoja:
 
@@ -17,3 +17,5 @@ Xroads on sovellus, jonka tarkoitus on tehdä monivalinteisten tarinoiden kirjoi
 * Käyttäjän rekisteröityminen
 * Kirjautuminen
 * Muiden tarinoiden lukeminen
+* Tarinoiden hakeminen
+* Tarinoiden suodatus käyttäjän perusteella

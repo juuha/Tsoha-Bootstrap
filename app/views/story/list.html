@@ -8,7 +8,7 @@
 
 {% if user_logged_in %}
 <div style="float: left; padding-right: 15px" class="form-inline">
-    <a href="{{base_path}}/story/new" class="btn btn-success">Lisää tarina</a>
+  <a href="{{base_path}}/story/new" class="btn btn-success">Lisää tarina</a>
 </div>
 {% endif %}
 
@@ -30,7 +30,7 @@
       <th>Genre</th>
       <th>Muokkauspäivä</th>
       {% if user_logged_in %}
-      <th></th>
+      <th>Toiminnot</th>
       {% endif %}
     </tr>
   </thead>
@@ -44,11 +44,13 @@
       {% endif %}
       <td>{{story.genre}}</td>
       <td>{{story.last_edited}}</td>
-      {% if user_logged_in %}
-      <td><a class="btn btn-default btn-sm" href="{{base_path}}/story/{{story.id}}/edit">Muokkaa</a></th>
+      <td>
+        {% if user_logged_in.name == story.author_name %}
+        <a class="btn btn-default btn-sm" href="{{base_path}}/story/{{story.id}}/edit">Muokkaa</a>
         {% endif %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% endblock %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
